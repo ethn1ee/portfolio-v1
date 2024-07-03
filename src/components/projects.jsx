@@ -155,15 +155,16 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
             }}
           ></motion.div>
         </AnimatePresence>
+
         {/* INFO */}
         <div className="w-full flex justify-between items-center relative">
           <div className="flex flex-1 justify-start">
-            <motion.p {...anim(hoverTextVariant)} className="font-semibold">
+            <motion.p {...anim(hoverTextVariant)} className="">
               {project.name}
             </motion.p>
           </div>
           <div className="flex flex-1 justify-start">
-            <p className="font-semibold">
+            <p className="">
               {project.category.map((category, index) => (
                 <span className="text-inherit" key={index}>
                   {category}
@@ -173,10 +174,10 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
             </p>
           </div>
           <div className="flex flex-1 justify-end">
-            <p className="font-semibold">{project.client}</p>
+            <p className="">{project.client}</p>
           </div>
           <div className="flex flex-1 justify-end">
-            <motion.p {...anim(hoverTextVariant)} className="font-semibold">
+            <motion.p {...anim(hoverTextVariant)} className="">
               {project.year}
             </motion.p>
           </div>
