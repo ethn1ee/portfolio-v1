@@ -208,7 +208,7 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
 
             {/* CAROUSEL */}
             <motion.div
-              className="flex gap-sm overflow-scroll rounded-lg scroll-smooth relative"
+              className="flex gap-sm overflow-scroll scroll-smooth relative"
               style={{ scrollbarWidth: "none" }}
               initial={{ x: "-200px" }}
               animate={{ x: "0px" }}
@@ -287,7 +287,7 @@ const Thumbnail = ({ img, carouselRef }) => {
       whileHover={{ scale: 0.95 }}
       transition={{ duration: 0.3 }}
       style={{ width: imgWidth, height: imgHeight }}
-      className="cursor-outline bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
+      className="cursor-hidden bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
     >
       {img && <Image src={img.src} alt="" fill className="object-cover" />}
     </motion.div>

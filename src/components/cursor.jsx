@@ -11,6 +11,7 @@ const Cursor = () => {
 
   const [isOutline, setIsOutline] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   const mouse = {
     x: useMotionValue(0),
@@ -26,6 +27,7 @@ const Cursor = () => {
   const defaultCursorStyle = {
     width: 12,
     height: 12,
+    opacity: 1,
     borderRadius: 0,
     left: smoothMouse.x,
     top: smoothMouse.y,
@@ -45,6 +47,10 @@ const Cursor = () => {
     underline: {
       height: 1,
     },
+    hidden: {
+      opacity: 0,
+      display: "none",
+    },
   };
 
   const cursorTransition = {
@@ -59,17 +65,15 @@ const Cursor = () => {
       duration: 0,
       delay: 0.2,
     },
+    display: {
+      duration: 0,
+      delay: 0,
+    },
+    opacity: {
+      duration: isHidden ? 0 : 0.2,
+      delay: isHidden ? 0 : 0.2,
+    },
   };
-
-  useEffect(() => {
-    const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0;
-    if (isTouchDevice) {
-      setCursorStyle((currentStyle) => ({ ...currentStyle, display: "none" }));
-    }
-  }, []);
 
   const manageMouseMove = (e) => {
     const { clientX, clientY } = e;
@@ -78,6 +82,7 @@ const Cursor = () => {
     setIsHovered(false);
     setIsOutline(false);
     setIsUnderline(false);
+    setIsHidden(false);
 
     stickyElements.forEach((elementRef) => {
       if (elementRef.current) {
@@ -98,6 +103,8 @@ const Cursor = () => {
             setIsOutline(true);
           else if (elementRef.current.className.includes("cursor-underline"))
             setIsUnderline(true);
+          else if (elementRef.current.className.includes("cursor-hidden"))
+            setIsHidden(true);
 
           setCursorStyle({
             ...defaultCursorStyle,
@@ -125,6 +132,13 @@ const Cursor = () => {
             }));
             mouse.x.set(center.x);
             mouse.y.set(top + height + 4);
+          } else if (isHidden) {
+            setCursorStyle((prev) => ({
+              ...prev,
+              ...cursorVariants.hidden,
+            }));
+            mouse.x.set(center.x);
+            mouse.y.set(center.y);
           } else {
             mouse.x.set(center.x);
             mouse.y.set(center.y);
@@ -137,6 +151,16 @@ const Cursor = () => {
       setCursorStyle(defaultCursorStyle);
       mouse.x.set(clientX - cursorStyle.width / 2);
       mouse.y.set(clientY - cursorStyle.height / 2);
+    }
+
+    const isTouchDevice =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      navigator.msMaxTouchPoints > 0;
+    console.log(isTouchDevice);
+
+    if (isTouchDevice) {
+      setCursorStyle(cursorVariants.hidden);
     }
   };
 
