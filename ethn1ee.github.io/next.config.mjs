@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "export",
 
-  basePath: "/ethn1ee.github.io",
+  basePath: "/",
 
   images: {
     unoptimized: true,
