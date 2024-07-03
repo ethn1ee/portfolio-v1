@@ -1,4 +1,4 @@
-import { Fira_Sans, Inter } from "next/font/google";
+import { Fira_Sans } from "next/font/google";
 import "./globals.css";
 import GlobalComponents from "@/components/globalComponents";
 import { StickyRefsProvider } from "@/components/useStickyRefs";
@@ -17,16 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={firaSans.className}>
+      <body className={[firaSans.className]}>
         <StickyRefsProvider>
           <GlobalComponents />
           <div
             className="w-full h-[calc(100vh-60px)] relative mt-[60px] bg-base-black z-10"
             style={{ scrollbarWidth: "none" }}
           >
-            <SmoothScroll>
-            {children}
-            </SmoothScroll>
+            <SmoothScroll>{children}</SmoothScroll>
           </div>
         </StickyRefsProvider>
       </body>

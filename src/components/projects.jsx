@@ -242,7 +242,9 @@ const Tag = ({ item }) => {
   return (
     <motion.div
       ref={tagRef}
-      className="h-[30px] flex py-s px-sm bg-neutral-900 shrink-0 cursor-default select-none"
+      // initial={{backgroundColor: "#2B2829"}}
+      whileHover={{backgroundColor: "#0A0A0B"}}
+      className="h-[30px] flex py-s px-sm bg-neutral-900 shrink-0 select-none"
     >
       <small className="text-inherit">{item}</small>
     </motion.div>

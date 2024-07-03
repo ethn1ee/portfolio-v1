@@ -157,7 +157,6 @@ const Cursor = () => {
       "ontouchstart" in window ||
       navigator.maxTouchPoints > 0 ||
       navigator.msMaxTouchPoints > 0;
-    console.log(isTouchDevice);
 
     if (isTouchDevice) {
       setCursorStyle(cursorVariants.hidden);
