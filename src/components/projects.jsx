@@ -203,9 +203,9 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <div className="text-hero w-full md:w-1/2">
+            <h4 className="w-full md:w-1/2">
               {project.description}
-            </div>
+            </h4>
 
             {/* TAGS */}
             <div
