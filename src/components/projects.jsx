@@ -13,11 +13,14 @@ const Projects = () => {
   const projectsRef = useRef();
 
   const isProjectsInView = useInView(projectsRef, {
-    once: false,
+    once: true,
   });
 
   return (
-    <div ref={projectsRef} className="w-full mt-ml min-h-[calc(100vh-60px)] h-fit">
+    <div
+      ref={projectsRef}
+      className="w-full mt-ml min-h-[calc(100vh-60px)] h-fit"
+    >
       {/* LIST HEADER */}
       <div className="w-full flex justify-between items-center py-sm sticky top-[60px] bg-base-black z-10 pointer-events-none">
         <div className="flex flex-1 justify-start items-center">
@@ -39,8 +42,8 @@ const Projects = () => {
           key={index}
           project={project}
           isProjectsInView={isProjectsInView}
+          activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
-          expand={activeIndex === index}
           index={index}
         />
       ))}
@@ -50,12 +53,14 @@ const Projects = () => {
 
 const ProjectCard = ({
   project,
+  activeIndex,
   setActiveIndex,
   isProjectsInView,
-  expand,
   index,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const expand = activeIndex === index;
 
   const projectRef = useRef();
   const { addStickyElement, removeStickyElement } = useStickyRefs();
@@ -63,18 +68,6 @@ const ProjectCard = ({
   const carouselRef = useRef();
 
   const intervalRef = useRef(null);
-
-  const startScrolling = (direction) => {
-    intervalRef.current = setInterval(() => {
-      if (carouselRef.current) {
-        carouselRef.current.scrollLeft += direction * 30;
-      }
-    }, 0);
-  };
-
-  const stopScrolling = () => {
-    clearInterval(intervalRef.current);
-  };
 
   useEffect(() => {
     addStickyElement(projectRef);
@@ -90,34 +83,42 @@ const ProjectCard = ({
   const expandContentVariant = {
     initial: {
       opacity: 0,
-      maxHeight: "0px",
-      margin: "0px 0",
+      maxHeight: 0,
+      marginTop: 0,
+      marginBottom: 0,
       rotateX: -10,
     },
     animate: {
       opacity: expand ? 1 : 0,
-      maxHeight: expand ? "1050px" : "0px",
-      margin: expand ? "28px 0" : "0px 0",
+      maxHeight: expand ? 1000 : 0,
+      marginTop: expand ? 20 : 0,
+      marginBottom: expand ? 40 : 0,
       rotateX: expand ? 0 : -10,
     },
     exit: {
       opacity: 0,
-      maxHeight: "0px",
-      margin: "0px 0",
+      maxHeight: 0,
+      marginTop: 0,
+      marginBottom: 0,
       rotateX: -10,
     },
     transition: {
+      ease: customEase,
       maxHeight: {
+        delay: 0,
+        duration: expand ? 0.7 : 0.5,
+      },
+      marginTop: {
         delay: 0,
         duration: 0.5,
       },
-      margin: {
-        delay: expand ? 0 : 0.2,
-        duration: 0.3,
+      marginBottom: {
+        delay: 0,
+        duration: 0.5,
       },
       opacity: {
-        delay: expand ? 0 : 0.2,
-        duration: 0.3,
+        delay: expand ? 0 : 0.3,
+        duration: 0.5,
       },
       display: {
         delay: expand ? 0 : 0.5,
@@ -125,7 +126,7 @@ const ProjectCard = ({
       },
       rotateX: {
         delay: 0.1,
-        duration: 0.2,
+        duration: 0.5,
       },
     },
   };
@@ -141,7 +142,7 @@ const ProjectCard = ({
     transition: {
       width: {
         duration: 1.4,
-        delay: index * 0.1,
+        delay: Math.sqrt(index) * 0.2,
         ease: customEase,
       },
     },
@@ -155,7 +156,7 @@ const ProjectCard = ({
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setActiveIndex(expand ? -1 : index)}
         ref={projectRef}
-        className="w-full py-sm relative flex items-center cursor-pointer select-none"
+        className="w-full py-m relative flex items-center cursor-pointer select-none"
       >
         {/* TOP BORDER */}
         <motion.div
@@ -199,7 +200,7 @@ const ProjectCard = ({
             {...anim(expandContentVariant)}
             transition={expandContentVariant.transition}
             style={{ transformPerspective: 800, originY: 0 }}
-            className="flex flex-col gap-l my-l overflow-hidden"
+            className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
             <div className="text-hero w-full md:w-1/2">
@@ -220,9 +221,9 @@ const ProjectCard = ({
             <motion.div
               className="flex gap-sm overflow-scroll scroll-smooth relative"
               style={{ scrollbarWidth: "none" }}
-              initial={{ x: "-200px" }}
+              initial={{ x: "-100px" }}
               animate={{ x: "0px" }}
-              exit={{ x: "-200px" }}
+              exit={{ x: "300px" }}
               transition={{ duration: 0.5, ease: customEase }}
               ref={carouselRef}
             >

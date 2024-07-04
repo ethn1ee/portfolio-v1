@@ -32,7 +32,7 @@ const Hero = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            transition={{ duration: 0.5, delay: 2 }}
             ref={descRef1}
             className="cursor-underline select-none text-neutral-400 h-4"
           >
@@ -41,7 +41,7 @@ const Hero = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            transition={{ duration: 0.5, delay: 2.3 }}
             ref={descRef2}
             className="cursor-underline select-none text-neutral-400 h-4"
           >

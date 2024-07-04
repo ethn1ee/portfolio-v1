@@ -20,12 +20,14 @@ export default function RootLayout({ children }) {
       <body className={[firaSans.className]}>
         <StickyRefsProvider>
           <GlobalComponents />
-          <div
-            className="w-full h-[calc(100vh-60px)] relative mt-[60px] bg-base-black z-10"
-            style={{ scrollbarWidth: "none" }}
-          >
-            <SmoothScroll>{children}</SmoothScroll>
-          </div>
+          <SmoothScroll>
+            <div
+              className="w-full relative mt-[60px] bg-base-black z-10"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {children}
+            </div>
+          </SmoothScroll>
         </StickyRefsProvider>
       </body>
     </html>
