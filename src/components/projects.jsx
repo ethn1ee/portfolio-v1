@@ -203,9 +203,9 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <h4 className="w-full md:w-1/2">
+            <h3 className="font-medium w-full md:w-1/2">
               {project.description}
-            </h4>
+            </h3>
 
             {/* TAGS */}
             <div
@@ -287,7 +287,7 @@ const Thumbnail = ({ img, carouselRef }) => {
     return () => window.removeEventListener("resize", updateWidth);
   });
 
-  const imgHeight = Math.min((carouselWidth * 9) / 16, 420);
+  const imgHeight = Math.min((carouselWidth * 9) / 16, 600);
   const imgWidth =
     img.orientation === "landscape"
       ? (imgHeight * 16) / 9
