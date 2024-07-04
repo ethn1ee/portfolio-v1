@@ -9,6 +9,7 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+  font-optical-sizing: none;
   /* cursor: none; */
 }
 

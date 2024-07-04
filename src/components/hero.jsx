@@ -28,13 +28,13 @@ const Hero = () => {
   return (
     <div className="w-full h-[calc(100vh-60px)] flex items-center justify-center">
       <div className="flex gap-m relative">
-        <div className="flex flex-col items-end absolute top-0 -left-[170px] gap-s">
+        <div className="flex flex-col absolute lg:items-end -bottom-[60px] left-1 lg:top-0 lg:-left-[170px] gap-s">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
             ref={descRef1}
-            className="cursor-underline select-none"
+            className="cursor-underline select-none text-neutral-400 h-4"
           >
             UI / UX DESIGNER
           </motion.p>
@@ -43,14 +43,14 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
             ref={descRef2}
-            className="cursor-underline select-none"
+            className="cursor-underline select-none text-neutral-400 h-4"
           >
             SOFTWARE ENGINEER
           </motion.p>
         </div>
         <motion.div
-          initial={{ opacity: 0, fontWeight: 400, letterSpacing: "-10px" }}
-          animate={{ opacity: 1, fontWeight: 200, letterSpacing: "-2px" }}
+          initial={{ opacity: 0, fontWeight: 400, letterSpacing: "-12px" }}
+          animate={{ opacity: 1, fontWeight: 200, letterSpacing: "-5px" }}
           transition={{
             duration: 1,
             delay: 0.6,
@@ -58,7 +58,7 @@ const Hero = () => {
           }}
           className={
             sourceSerif.className +
-            " text-[144px] tracking-tight select-none flex"
+            " text-[60px] md:text-[80px] lg:text-[130px] xl:text-[144px] select-none flex"
           }
         >
           {"ETHAN LEE".split("").map((letter, index) => (
@@ -92,7 +92,7 @@ const Letter = ({ letter }) => {
         delay: isHovered ? 0 : 0.1,
       }}
       ref={letterRef}
-      className="h-[100px] flex items-center overflow-hidden"
+      className="h-[46px] md:h-[60px] lg:h-[92px] xl:h-[100px] flex items-center overflow-hidden subpixel-antialiased"
     >
       {letter === " " ? "\u00A0" : letter}
     </motion.span>

@@ -7,6 +7,8 @@ import { useStickyRefs } from "./useStickyRefs";
 const Cursor = () => {
   const { stickyElements } = useStickyRefs();
 
+  const useSmoothMouse = true;
+
   const [isHovered, setIsHovered] = useState(false);
 
   const [isOutline, setIsOutline] = useState(false);
@@ -28,9 +30,9 @@ const Cursor = () => {
     width: 12,
     height: 12,
     opacity: 1,
-    borderRadius: 0,
-    left: smoothMouse.x,
-    top: smoothMouse.y,
+    borderRadius: 4,
+    left: useSmoothMouse ? smoothMouse.x : mouse.x,
+    top: useSmoothMouse ? smoothMouse.y : mouse.y,
     backgroundColor: "#FAFAFAff",
     border: "0px solid #FAFAFAff",
     display: "block",
@@ -128,6 +130,7 @@ const Cursor = () => {
             setCursorStyle((prev) => ({
               ...prev,
               ...cursorVariants.underline,
+              backgroundColor: style.color,
               width: width + 8,
             }));
             mouse.x.set(center.x);
@@ -149,8 +152,8 @@ const Cursor = () => {
 
     if (!isHovered) {
       setCursorStyle(defaultCursorStyle);
-      mouse.x.set(clientX - cursorStyle.width / 2);
-      mouse.y.set(clientY - cursorStyle.height / 2);
+      mouse.x.set(clientX);
+      mouse.y.set(clientY);
     }
 
     const isTouchDevice =

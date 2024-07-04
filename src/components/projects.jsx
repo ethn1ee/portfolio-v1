@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import anim, { customEase } from "./anim";
 import Image from "next/image";
@@ -10,8 +10,14 @@ import { useStickyRefs } from "./useStickyRefs";
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
+  const projectsRef = useRef();
+
+  const isProjectsInView = useInView(projectsRef, {
+    once: false,
+  });
+
   return (
-    <div className="w-full min-h-[calc(100vh-60px)]">
+    <div ref={projectsRef} className="w-full mt-ml min-h-[calc(100vh-60px)] h-fit">
       {/* LIST HEADER */}
       <div className="w-full flex justify-between items-center py-sm sticky top-[60px] bg-base-black z-10 pointer-events-none">
         <div className="flex flex-1 justify-start items-center">
@@ -32,6 +38,7 @@ const Projects = () => {
         <ProjectCard
           key={index}
           project={project}
+          isProjectsInView={isProjectsInView}
           setActiveIndex={setActiveIndex}
           expand={activeIndex === index}
           index={index}
@@ -41,7 +48,13 @@ const Projects = () => {
   );
 };
 
-const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
+const ProjectCard = ({
+  project,
+  setActiveIndex,
+  isProjectsInView,
+  expand,
+  index,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const projectRef = useRef();
@@ -99,29 +112,37 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
         duration: 0.5,
       },
       margin: {
-        delay: {
-          expand: 0,
-          collapse: 0.2,
-        },
+        delay: expand ? 0 : 0.2,
         duration: 0.3,
       },
       opacity: {
-        delay: {
-          expand: 0,
-          collapse: 0.2,
-        },
+        delay: expand ? 0 : 0.2,
         duration: 0.3,
       },
       display: {
-        delay: {
-          expand: 0,
-          collapse: 0.5,
-        },
+        delay: expand ? 0 : 0.5,
         duration: 0,
       },
       rotateX: {
         delay: 0.1,
         duration: 0.2,
+      },
+    },
+  };
+
+  const topBorderVariant = {
+    initial: { width: "0%", opacity: 1 },
+    animate: isProjectsInView
+      ? {
+          width: "100%",
+          opacity: isHovered ? 0 : 1,
+        }
+      : {},
+    transition: {
+      width: {
+        duration: 1.4,
+        delay: index * 0.1,
+        ease: customEase,
       },
     },
   };
@@ -137,24 +158,11 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
         className="w-full py-sm relative flex items-center cursor-pointer select-none"
       >
         {/* TOP BORDER */}
-        <AnimatePresence>
-          <motion.div
-            className="w-full h-[1px] opacity-100 absolute top-0 left-0 bg-base-white"
-            initial={{ width: "0%", opacity: 1 }}
-            animate={{
-              opacity: isHovered ? 0 : 1,
-              width: "100%",
-            }}
-            transition={{
-              duration: 0.3,
-              width: {
-                duration: 0.8,
-                delay: Math.sqrt(index) * 0.2,
-                ease: customEase,
-              },
-            }}
-          ></motion.div>
-        </AnimatePresence>
+        <motion.div
+          {...anim(topBorderVariant)}
+          transition={topBorderVariant.transition}
+          className="w-full h-[1px] opacity-100 absolute top-0 left-0 bg-base-white"
+        ></motion.div>
 
         {/* INFO */}
         <div className="w-full flex justify-between items-center relative">
@@ -189,6 +197,7 @@ const ProjectCard = ({ project, setActiveIndex, expand, index }) => {
         {expand && (
           <motion.div
             {...anim(expandContentVariant)}
+            transition={expandContentVariant.transition}
             style={{ transformPerspective: 800, originY: 0 }}
             className="flex flex-col gap-l my-l overflow-hidden"
           >
@@ -243,7 +252,7 @@ const Tag = ({ item }) => {
     <motion.div
       ref={tagRef}
       // initial={{backgroundColor: "#2B2829"}}
-      whileHover={{backgroundColor: "#0A0A0B"}}
+      whileHover={{ backgroundColor: "#0A0A0B" }}
       className="h-[30px] flex py-s px-sm bg-neutral-900 shrink-0 select-none"
     >
       <small className="text-inherit">{item}</small>
