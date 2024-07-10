@@ -205,7 +205,10 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <h3 ref={descRef} className="cursor-none cursor-textpointer font-medium w-full md:w-1/2">
+            <h3
+              ref={descRef}
+              className="cursor-none cursor-textpointer font-light w-full md:w-1/2"
+            >
               {project.description}
             </h3>
 
@@ -254,9 +257,9 @@ const Tag = ({ item }) => {
     <motion.div
       ref={tagRef}
       whileHover={{ backgroundColor: "#0A0A0B" }}
-      className="h-[30px] flex py-s px-sm bg-neutral-900 shrink-0 select-none"
+      className="flex items-center justify-center py-s px-sm bg-neutral-900 shrink-0 select-none"
     >
-      <small className="text-inherit">{item}</small>
+      <p className="text-inherit">{item}</p>
     </motion.div>
   );
 };
@@ -276,7 +279,7 @@ const Thumbnail = ({ img }) => {
   const minImgHeight = 180;
   const aspectRatio = {
     landscape: 16 / 9,
-    portrait: 9 / 16,
+    portrait: 390 / 844,
   };
 
   const [imgHeight, setImgHeight] = useState(0);

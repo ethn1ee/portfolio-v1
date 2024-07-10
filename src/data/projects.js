@@ -5,207 +5,125 @@ export const projects = [
     client: "eStreamly",
     year: 2024,
     description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
+      "Revamped the shopping experience in a video-based eCommerce service to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
+    tags: ["eCommerce", "Angular", "Figma"],
     images: [
       {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        orientation: "portrait",
+        src: "./eStreamly/0.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        src: "./eStreamly/1.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./eStreamly/2.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./eStreamly/3.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./eStreamly/4.png",
       },
     ],
   },
   {
-    name: "eStreamly Website",
+    name: "RIDEmory Website",
     category: ["Web Design", "Development"],
-    client: "eStreamly",
+    client: "RIDEmory",
     year: 2024,
     description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
+      "Developed a website for a student-run ride-sharing platform in Emory University, focusing on user experience and accessibility.",
+    tags: ["Rideshare", "React", "Spring Boot", "MongoDB", "Figma"],
     images: [
       {
         orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        src: "./RIDEmory/0.png",
       },
       {
         orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        src: "./RIDEmory/1.png",
       },
       {
-        orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        orientation: "landscape",
+        src: "./RIDEmory/2.png",
+      },
+      {
+        orientation: "landscape",
+        src: "./RIDEmory/3.png",
+      },
+      {
+        orientation: "landscape",
+        src: "./RIDEmory/4.png",
       },
     ],
   },
   {
-    name: "eStreamly Website",
-    category: ["Web Design", "Development"],
-    client: "eStreamly",
-    year: 2024,
+    name: "Stack",
+    category: ["App Design"],
+    client: "Independent Project",
+    year: 2023,
     description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
+      "A social media for photo-journals, allowing users to timelapse their lives and share their stories.",
+    tags: ["Social Media", "Figma"],
     images: [
       {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "./next.svg",
+        orientation: "portrait",
+        src: "./Stack/0.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        src: "./Stack/1.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./Stack/2.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./Stack/3.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./Stack/4.png",
       },
     ],
   },
   {
-    name: "eStreamly Website",
-    category: ["Web Design", "Development"],
-    client: "eStreamly",
-    year: 2024,
+    name: "Loop",
+    category: ["App Design"],
+    client: "Independent Project",
+    year: 2023,
     description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
+      "An accessible and socially engaging music streaming service, inspired by Spotify and Threads.",
+    tags: ["Social Media", "Figma"],
     images: [
       {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "./next.svg",
+        orientation: "portrait",
+        src: "./Loop/0.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-    ],
-  },
-  {
-    name: "eStreamly Website",
-    category: ["Web Design", "Development"],
-    client: "eStreamly",
-    year: 2024,
-    description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
-    images: [
-      {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "./next.svg",
+        src: "./Loop/1.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-    ],
-  },
-  {
-    name: "eStreamly Website",
-    category: ["Web Design", "Development"],
-    client: "eStreamly",
-    year: 2024,
-    description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
-    images: [
-      {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "./next.svg",
+        src: "./Loop/2.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-    ],
-  },
-  {
-    name: "eStreamly Website",
-    category: ["Web Design", "Development"],
-    client: "eStreamly",
-    year: 2024,
-    description:
-      "Revamped the website of a video-based eCommerce startup to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: [
-      "eCommerce",
-      "React",
-      "Next.js",
-      "Taiwlind CSS",
-      "Framer Motion",
-      "Figma",
-    ],
-    images: [
-      {
-        orientation: "landscape",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        orientation: "landscape",
-        src: "./next.svg",
+        src: "./Loop/3.png",
       },
       {
         orientation: "portrait",
-        src: "https://images.unsplash.com/photo-1694390786624-f9afc128c669?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        src: "./Loop/4.png",
+      },
+      {
+        orientation: "portrait",
+        src: "./Loop/5.png",
       },
     ],
   },
