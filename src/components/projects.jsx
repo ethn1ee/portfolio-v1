@@ -259,7 +259,7 @@ const Tag = ({ item }) => {
       whileHover={{ backgroundColor: "#0A0A0B" }}
       className="flex items-center justify-center py-s px-sm bg-neutral-900 shrink-0 select-none"
     >
-      <p className="text-inherit">{item}</p>
+      <p className="font-medium">{item}</p>
     </motion.div>
   );
 };
