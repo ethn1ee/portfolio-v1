@@ -7,11 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontSize: {
-        "hero": ["28px", { lineHeight: "120%", fontWeight: "400" }],
-        "feature": ["24px", { lineHeight: "120%", fontWeight: "400" }],
-        "highlight": ["18px", {lineHeight: "120%", fontWeight: "400" }],
-      },
       backgroundColor: {
         "base-black": "#0A0A0B",
       },

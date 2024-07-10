@@ -9,7 +9,7 @@ const GlobalComponents = () => {
       <div className="w-screen px-ml fixed top-0 left-0 h-auto z-40">
         <NavBar />
       </div>
-      <div className="mix-blend-difference fixed z-50">
+      <div className="fixed mix-blend-exclusion z-40">
         <Cursor />
       </div>
     </>

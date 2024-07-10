@@ -1,12 +1,12 @@
-import { Fira_Sans } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import GlobalComponents from "@/components/globalComponents";
 import { StickyRefsProvider } from "@/components/useStickyRefs";
 import SmoothScroll from "@/components/smoothScroll";
 
-const firaSans = Fira_Sans({
+const font = Lato({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["100", "300", "400", "700", "900"],
 });
 
 export const metadata = {
@@ -17,12 +17,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={[firaSans.className]}>
+      <body className={font.className}>
         <StickyRefsProvider>
           <GlobalComponents />
           <SmoothScroll>
             <div
-              className="w-full relative mt-[60px] bg-base-black z-10"
+              className="w-full relative mt-[60px] bg-base-black"
               style={{ scrollbarWidth: "none" }}
             >
               {children}

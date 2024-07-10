@@ -5,12 +5,12 @@
 body,
 * {
   @apply text-base-white;
-  /* @apply cursor-none; */
+  /* @apply cursor-none !important; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
   font-optical-sizing: none;
-  /* cursor: none; */
+  line-height: 120%;
 }
 
 body {
@@ -20,42 +20,48 @@ body {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 28px;
+  @apply md:text-[56px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
 }
 
 h2 {
-  font-size: 48px;
+  font-size: 24px;
+  @apply md:text-[48px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
 }
 
 h3 {
-  font-size: 40px;
+  font-size: 20px;
+  @apply md:text-[40px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
 }
 
 h4 {
-  font-size: 32px;
+  font-size: 18px;
+  @apply md:text-[32px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
 }
 
 p {
-  font-size: 16px;
+  font-size: 14px;
+  @apply md:text-[16px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
 }
 
 small {
-  font-size: 14px;
+  font-size: 12px;
+  @apply md:text-[14px];
   font-style: normal;
   font-weight: 400;
   line-height: 120%;

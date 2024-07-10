@@ -1,13 +1,24 @@
 "use client";
 
-import { Source_Serif_4 } from "next/font/google";
-import { motion } from "framer-motion";
+import { Great_Vibes, Playfair_Display_SC } from "next/font/google";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 import { customEase } from "./anim";
 import { useEffect, useRef, useState } from "react";
 import { useStickyRefs } from "./useStickyRefs";
 
-const sourceSerif = Source_Serif_4({
+const greatVibes = Great_Vibes({
   subsets: ["latin"],
+  weight: ["400"],
+});
+
+const playfairDisplaySC = Playfair_Display_SC({
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const Hero = () => {
@@ -25,77 +36,34 @@ const Hero = () => {
     };
   }, []);
 
+  const { scrollYProgress } = useScroll();
+
+  const [heroOpacity, setHeroOpacity] = useState(1);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setHeroOpacity(Math.max(0, 1 - latest * 3));
+  });
+
   return (
-    <div className="w-full h-[calc(100vh-60px)] flex items-center justify-center">
-      <div className="flex gap-m relative">
-        <div className="flex flex-col absolute lg:items-end -bottom-[60px] left-1 lg:top-0 lg:-left-[170px] gap-s">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 2 }}
-            ref={descRef1}
-            className="cursor-underline select-none text-neutral-400 h-4"
-          >
-            UI / UX DESIGNER
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 2.3 }}
-            ref={descRef2}
-            className="cursor-underline select-none text-neutral-400 h-4"
-          >
-            SOFTWARE ENGINEER
-          </motion.p>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, fontWeight: 400, letterSpacing: "-12px" }}
-          animate={{ opacity: 1, fontWeight: 200, letterSpacing: "-5px" }}
-          transition={{
-            duration: 1,
-            delay: 0.6,
-            ease: customEase,
-          }}
+    <motion.div
+      style={{
+        opacity: heroOpacity,
+      }}
+      className="w-full h-[calc(100vh-60px)] flex items-center justify-center select-none relative"
+    >
+      <div className="fixed flex flex-col items-center justify-center">
+        <div className={greatVibes.className + " text-[164px]"}>Ethan Lee</div>
+        <div
           className={
-            sourceSerif.className +
-            " text-[60px] md:text-[80px] lg:text-[130px] xl:text-[144px] select-none flex"
+            playfairDisplaySC.className +
+            " text-[64px] -mt-3 flex flex-col items-center justify-center tracking-tighter"
           }
         >
-          {"ETHAN LEE".split("").map((letter, index) => (
-            <Letter letter={letter} key={index} />
-          ))}
-        </motion.div>
+          <div>Developer & Designer</div>
+          <div className="-mt-2">Portfolio 2024</div>
+        </div>
       </div>
-    </div>
-  );
-};
-
-const Letter = ({ letter }) => {
-  const letterRef = useRef();
-
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(letterRef);
-    return () => removeStickyElement(letterRef);
-  }, [letter]);
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.span
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      animate={isHovered ? { fontWeight: 400 } : { fontWeight: 200 }}
-      transition={{
-        duration: isHovered ? 0.2 : 0.8,
-        delay: isHovered ? 0 : 0.1,
-      }}
-      ref={letterRef}
-      className="h-[46px] md:h-[60px] lg:h-[92px] xl:h-[100px] flex items-center overflow-hidden subpixel-antialiased"
-    >
-      {letter === " " ? "\u00A0" : letter}
-    </motion.span>
+    </motion.div>
   );
 };
 

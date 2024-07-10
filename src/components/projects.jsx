@@ -63,16 +63,18 @@ const ProjectCard = ({
   const expand = activeIndex === index;
 
   const projectRef = useRef();
+  const descRef = useRef();
+
   const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  const carouselRef = useRef();
-
-  const intervalRef = useRef(null);
 
   useEffect(() => {
     addStickyElement(projectRef);
+    addStickyElement(descRef);
 
-    return () => removeStickyElement(projectRef);
+    return () => {
+      removeStickyElement(projectRef);
+      removeStickyElement(projectRef);
+    };
   }, [project]);
 
   const hoverTextVariant = {
@@ -203,7 +205,7 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <h3 className="font-medium w-full md:w-1/2">
+            <h3 ref={descRef} className="cursor-none cursor-textpointer font-medium w-full md:w-1/2">
               {project.description}
             </h3>
 
@@ -225,10 +227,9 @@ const ProjectCard = ({
               animate={{ x: "0px" }}
               exit={{ x: "300px" }}
               transition={{ duration: 0.5, ease: customEase }}
-              ref={carouselRef}
             >
               {project.images.map((img, i) => (
-                <Thumbnail key={i} img={img} carouselRef={carouselRef} />
+                <Thumbnail key={i} img={img} />
               ))}
             </motion.div>
           </motion.div>
@@ -260,7 +261,7 @@ const Tag = ({ item }) => {
   );
 };
 
-const Thumbnail = ({ img, carouselRef }) => {
+const Thumbnail = ({ img }) => {
   const imgRef = useRef();
 
   const { addStickyElement, removeStickyElement } = useStickyRefs();
@@ -271,32 +272,42 @@ const Thumbnail = ({ img, carouselRef }) => {
     return () => removeStickyElement(imgRef);
   }, [img]);
 
-  const [carouselWidth, setCarouselWidth] = useState(0);
+  const maxImgHeight = 500;
+  const minImgHeight = 180;
+  const aspectRatio = {
+    landscape: 16 / 9,
+    portrait: 9 / 16,
+  };
 
-  const updateWidth = () => {
-    if (carouselRef.current) {
-      setCarouselWidth(carouselRef.current.getBoundingClientRect().width);
-    }
+  const [imgHeight, setImgHeight] = useState(0);
+
+  const [imgWidth, setImgWidth] = useState(0);
+
+  const updateSize = () => {
+    const carouselWidth = window.innerWidth - 40;
+
+    setImgHeight(
+      Math.max(
+        minImgHeight,
+        Math.min(
+          (carouselWidth * 0.9 * 9) / 16,
+          Math.min(maxImgHeight, window.innerHeight - 600)
+        )
+      )
+    );
+    setImgWidth(imgHeight * aspectRatio[img.orientation]);
   };
 
   useEffect(() => {
-    if (carouselRef.current) {
-      setCarouselWidth(carouselRef.current.getBoundingClientRect().width);
-    }
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   });
-
-  const imgHeight = Math.min((carouselWidth * 9) / 16, 600);
-  const imgWidth =
-    img.orientation === "landscape"
-      ? (imgHeight * 16) / 9
-      : (imgHeight * 9) / 16;
 
   return (
     <motion.div
       ref={imgRef}
-      whileHover={{ scale: 0.95 }}
+      whileHover={{ scale: 0.97 }}
       transition={{ duration: 0.3 }}
       style={{ width: imgWidth, height: imgHeight }}
       className="cursor-hidden bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
