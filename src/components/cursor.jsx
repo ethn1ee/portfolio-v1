@@ -8,8 +8,8 @@ import {
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useStickyRefs } from "./useStickyRefs";
-import { customEase } from "./anim";
+import { useStickyRefs } from "./utils/useStickyRefs";
+import { customEase } from "./utils/anim";
 
 const Cursor = () => {
   const { stickyElements } = useStickyRefs();
@@ -20,7 +20,6 @@ const Cursor = () => {
 
   const [isUnderline, setIsUnderline] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [isTextClip, setIsTextClip] = useState(false);
 
   const [elementStyle, setElementStyle] = useState({
     borderRadius: 0,
@@ -61,11 +60,6 @@ const Cursor = () => {
     underline: {
       height: 1,
     },
-    textclip: {
-      backgroundClip: "text",
-      WebkitBackgroundClip: "text",
-      backgroundColor: "#FAFAFAff",
-    },
     textpointer: {
       width: "2px",
     },
@@ -104,7 +98,6 @@ const Cursor = () => {
     setIsHovered(false);
     setIsUnderline(false);
     setIsHidden(false);
-    setIsTextClip(false);
 
     stickyElements.forEach((elementRef) => {
       if (elementRef.current) {
@@ -128,9 +121,6 @@ const Cursor = () => {
           } else if (elementRef.current.className.includes("cursor-hidden")) {
             setIsHidden(true);
             cursorType = "hidden";
-          } else if (elementRef.current.className.includes("cursor-textclip")) {
-            setIsTextClip(true);
-            cursorType = "textclip";
           } else if (
             elementRef.current.className.includes("cursor-textpointer")
           ) {
@@ -166,15 +156,6 @@ const Cursor = () => {
               mouse.y.set(top + height + 4);
               break;
 
-            case "textclip":
-              setCursorStyle((prev) => ({
-                ...prev,
-              }));
-              setTextContent(elementRef.current.textContent);
-              mouse.x.set(center.x);
-              mouse.y.set(center.y);
-              break;
-
             case "textpointer":
               setCursorStyle((prev) => ({
                 ...prev,
@@ -191,44 +172,6 @@ const Cursor = () => {
               }));
               break;
           }
-
-          // if (isOutline) {
-          //   setCursorStyle((prev) => ({
-          //     ...prev,
-          //     ...cursorVariants.outline,
-          //     width: width + cursorVariants.outline.padding * 2,
-          //     height: height + cursorVariants.outline.padding * 2,
-          //   }));
-          //   mouse.x.set(center.x);
-          //   mouse.y.set(center.y);
-          // } else if (isUnderline) {
-          //   setCursorStyle((prev) => ({
-          //     ...prev,
-          //     ...cursorVariants.underline,
-          //     backgroundColor: elementStyle.color,
-          //     width: width + 8,
-          //   }));
-          //   mouse.x.set(center.x);
-          //   mouse.y.set(top + height + 4);
-          // } else if (isHidden) {
-          //   setCursorStyle((prev) => ({
-          //     ...prev,
-          //     ...cursorVariants.hidden,
-          //   }));
-          //   mouse.x.set(center.x);
-          //   mouse.y.set(center.y);
-          // } else if (isTextClip) {
-          //   setCursorStyle((prev) => ({
-          //     ...prev,
-          //     ...cursorVariants.textclip,
-          //   }));
-          //   setTextContent(elementRef.current.textContent);
-          //   mouse.x.set(center.x);
-          //   mouse.y.set(center.y);
-          // } else {
-          //   mouse.x.set(center.x);
-          //   mouse.y.set(center.y);
-          // }
         }
       }
     });
@@ -257,26 +200,22 @@ const Cursor = () => {
   });
 
   return (
-    <motion.div
-      className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
-      style={cursorStyle}
-      initial={cursorStyle}
-      animate={cursorStyle}
-      transition={cursorTransition}
-    >
-      {isTextClip && (
-        <motion.div
-          style={{
-            fontSize: elementStyle.fontSize || "16px",
-            fontWeight: elementStyle.fontWeight || "400",
-          }}
-          transition={{ duration: 0.2, ease: customEase }}
-          className="flex items-center overflow-hidden h-full w-full text-transparent"
-        >
-          {textContent}
-        </motion.div>
-      )}
-    </motion.div>
+    <>
+      <motion.div
+        className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+        style={cursorStyle}
+        initial={cursorStyle}
+        animate={cursorStyle}
+        transition={cursorTransition}
+      ></motion.div>
+      <motion.div
+        className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+        style={cursorStyle}
+        initial={cursorStyle}
+        animate={cursorStyle}
+        transition={cursorTransition}
+      ></motion.div>
+    </>
   );
 };
 

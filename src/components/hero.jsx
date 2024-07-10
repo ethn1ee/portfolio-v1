@@ -3,13 +3,12 @@
 import { Great_Vibes, Playfair_Display_SC } from "next/font/google";
 import {
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useSpring,
 } from "framer-motion";
-import { customEase } from "./anim";
 import { useEffect, useRef, useState } from "react";
-import { useStickyRefs } from "./useStickyRefs";
 
 const greatVibes = Great_Vibes({
   subsets: ["latin"],
@@ -22,20 +21,6 @@ const playfairDisplaySC = Playfair_Display_SC({
 });
 
 const Hero = () => {
-  const descRef1 = useRef();
-  const descRef2 = useRef();
-
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(descRef1);
-    addStickyElement(descRef2);
-    return () => {
-      removeStickyElement(descRef1);
-      removeStickyElement(descRef2);
-    };
-  }, []);
-
   const { scrollYProgress } = useScroll();
 
   const [heroOpacity, setHeroOpacity] = useState(1);

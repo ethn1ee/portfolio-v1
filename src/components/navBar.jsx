@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { useStickyRefs } from "./useStickyRefs";
-import { customEase } from "./anim";
+import { useStickyRefs } from "./utils/useStickyRefs";
+import { customEase } from "./utils/anim";
 
 const links = [
   { url: "/about", title: "ABOUT" },

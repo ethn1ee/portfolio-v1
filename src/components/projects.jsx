@@ -2,10 +2,10 @@
 
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import anim, { customEase } from "./anim";
+import anim, { customEase } from "./utils/anim";
 import Image from "next/image";
 import { projects } from "@/data/projects";
-import { useStickyRefs } from "./useStickyRefs";
+import { useStickyRefs } from "./utils/useStickyRefs";
 
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -64,6 +64,7 @@ const ProjectCard = ({
 
   const projectRef = useRef();
   const descRef = useRef();
+  const carouselRef = useRef();
 
   const { addStickyElement, removeStickyElement } = useStickyRefs();
 
@@ -76,6 +77,8 @@ const ProjectCard = ({
       removeStickyElement(projectRef);
     };
   }, [project]);
+
+  const [currentThumbnail, setCurrentThumbnail] = useState(0);
 
   const hoverTextVariant = {
     initial: { padding: "0 0px" },
@@ -151,7 +154,7 @@ const ProjectCard = ({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div id="projects" className="flex flex-col overflow-hidden">
       {/* HEADER */}
       <motion.div
         onMouseEnter={() => setIsHovered(true)}
@@ -224,6 +227,7 @@ const ProjectCard = ({
 
             {/* CAROUSEL */}
             <motion.div
+              ref={carouselRef}
               className="flex gap-sm overflow-scroll scroll-smooth relative"
               style={{ scrollbarWidth: "none" }}
               initial={{ x: "-100px" }}
@@ -232,7 +236,14 @@ const ProjectCard = ({
               transition={{ duration: 0.5, ease: customEase }}
             >
               {project.images.map((img, i) => (
-                <Thumbnail key={i} img={img} />
+                <Thumbnail
+                  key={i}
+                  img={img}
+                  carouselRef={carouselRef}
+                  currentThumbnail={currentThumbnail}
+                  setCurrentThumbnail={setCurrentThumbnail}
+                  index={i}
+                />
               ))}
             </motion.div>
           </motion.div>
@@ -264,7 +275,13 @@ const Tag = ({ item }) => {
   );
 };
 
-const Thumbnail = ({ img }) => {
+const Thumbnail = ({
+  img,
+  carouselRef,
+  currentThumbnail,
+  setCurrentThumbnail,
+  index,
+}) => {
   const imgRef = useRef();
 
   const { addStickyElement, removeStickyElement } = useStickyRefs();
@@ -312,8 +329,16 @@ const Thumbnail = ({ img }) => {
       ref={imgRef}
       whileHover={{ scale: 0.97 }}
       transition={{ duration: 0.3 }}
+      onClick={() => {
+        if (currentThumbnail === index) return;
+        carouselRef.current.scrollBy({
+          left: currentThumbnail < index ? imgWidth - 20 : -imgWidth + 20,
+          behavior: "smooth",
+        });
+        setCurrentThumbnail(index);
+      }}
       style={{ width: imgWidth, height: imgHeight }}
-      className="cursor-hidden bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
+      className="cursor-hidden cursor-pointer bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
     >
       {img && <Image src={img.src} alt="" fill className="object-cover" />}
     </motion.div>

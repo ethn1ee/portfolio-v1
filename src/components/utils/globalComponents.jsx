@@ -1,7 +1,7 @@
 "use client";
 
-import Cursor from "./cursor";
-import NavBar from "./navBar";
+import Cursor from "../cursor";
+import NavBar from "../navBar";
 
 const GlobalComponents = () => {
   return (
