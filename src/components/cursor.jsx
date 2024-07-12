@@ -25,8 +25,8 @@ const Cursor = () => {
   });
 
   const mouse = {
-    x: useMotionValue(20),
-    y: useMotionValue(20),
+    x: useMotionValue(0),
+    y: useMotionValue(0),
   };
 
   const smoothOptions = { damping: 8, stiffness: 100, mass: 0.1 };

@@ -2,14 +2,13 @@
 
 import { Great_Vibes, Playfair_Display_SC } from "next/font/google";
 import {
-  AnimatePresence,
   motion,
   useMotionValue,
   useMotionValueEvent,
   useScroll,
   useSpring,
 } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { customEase } from "./utils/anim";
 
 const greatVibes = Great_Vibes({
@@ -31,6 +30,17 @@ const Hero = () => {
     setHeroOpacity(Math.max(0, 1 - latest * 3));
   });
 
+  const rotateDegree1 = useMotionValue(-90);
+  const rotateDegree2 = useMotionValue(-90);
+  const springOption = { stiffness: 80, damping: 8, mass: 2 };
+  const springRotate1 = useSpring(rotateDegree1, springOption);
+  const springRotate2 = useSpring(rotateDegree2, springOption);
+
+  useEffect(() => {
+    setTimeout(() => rotateDegree1.set(0), 700);
+    setTimeout(() => rotateDegree2.set(0), 1000);
+  }, []);
+
   return (
     <div
       style={{
@@ -42,7 +52,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1, ease: customEase }}
           className={
             greatVibes.className + " text-[64px] md:text-[10vw] xl:text-[164px]"
           }
@@ -56,16 +66,20 @@ const Hero = () => {
           }
         >
           <motion.div
-            initial={{ opacity: 0, y: -20, rotateX: -90 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 1, ease: customEase, delay: 0.5 }}
+            style={{
+              rotateX: springRotate1,
+              transformOrigin: "top",
+              transformPerspective: 500,
+            }}
           >
             Developer & Designer
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: -20, rotateX: 90 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 1, ease: customEase, delay: 0.8 }}
+            style={{
+              rotateX: springRotate2,
+              transformOrigin: "top",
+              transformPerspective: 500,
+            }}
             className="-mt-1 md:-mt-[0.5vw] xl:-mt-2"
           >
             Portfolio 2024
