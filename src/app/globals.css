@@ -11,6 +11,7 @@ body,
   text-rendering: geometricPrecision;
   font-optical-sizing: none;
   line-height: 120%;
+  scrollbar-width: none;
 }
 
 body {

@@ -109,30 +109,22 @@ const ProjectCard = ({
     },
     transition: {
       ease: customEase,
-      maxHeight: {
-        delay: 0,
-        duration: expand ? 0.7 : 0.5,
-      },
-      marginTop: {
-        delay: 0,
-        duration: 0.5,
-      },
-      marginBottom: {
-        delay: 0,
-        duration: 0.5,
-      },
-      opacity: {
-        delay: expand ? 0 : 0.3,
-        duration: 0.5,
-      },
-      display: {
-        delay: expand ? 0 : 0.5,
-        duration: 0,
-      },
-      rotateX: {
-        delay: 0.1,
-        duration: 0.5,
-      },
+      delay: 0,
+      duration: 1,
+      // maxHeight: {
+      //   delay: 0,
+      //   duration: expand ? 0.7 : 0.5,
+      // },
+      // opacity: {
+      //   delay: expand ? 0 : 0.3,
+      // },
+      // display: {
+      //   delay: expand ? 0 : 0.5,
+      //   duration: 0,
+      // },
+      // rotateX: {
+      //   delay: 0.1,
+      // },
     },
   };
 
@@ -228,12 +220,12 @@ const ProjectCard = ({
             {/* CAROUSEL */}
             <motion.div
               ref={carouselRef}
-              className="flex gap-sm overflow-scroll scroll-smooth relative"
+              className="flex gap-sm overflow-scroll scroll-smooth relative snap-x"
               style={{ scrollbarWidth: "none" }}
               initial={{ x: "-100px" }}
               animate={{ x: "0px" }}
-              exit={{ x: "300px" }}
-              transition={{ duration: 0.5, ease: customEase }}
+              exit={{ x: "100px" }}
+              transition={{ duration: 1, ease: "easeOut" }}
             >
               {project.images.map((img, i) => (
                 <Thumbnail
@@ -338,7 +330,7 @@ const Thumbnail = ({
         setCurrentThumbnail(index);
       }}
       style={{ width: imgWidth, height: imgHeight }}
-      className="cursor-hidden cursor-pointer bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden"
+      className="cursor-hidden cursor-pointer bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden snap-center"
     >
       {img && <Image src={img.src} alt="" fill className="object-cover" />}
     </motion.div>

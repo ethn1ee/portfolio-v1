@@ -8,14 +8,17 @@ const Template = ({ children }) => {
   const pathName = usePathname();
 
   return (
-    <motion.div
-      key={pathName}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: customEase }}
-    >
-      {children}
-    </motion.div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={pathName}
+        // initial={{ opacity: 0, scale: 0.97 }}
+        // animate={{ opacity: 1, scale: 1 }}
+        // transition={{ duration: 0.5, ease: customEase }}
+        className="w-full relative mt-[60px] bg-base-black"
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

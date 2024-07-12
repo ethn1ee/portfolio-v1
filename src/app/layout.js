@@ -21,12 +21,7 @@ export default function RootLayout({ children }) {
         <StickyRefsProvider>
           <GlobalComponents />
           <SmoothScroll>
-            <div
-              className="w-full relative mt-[60px] bg-base-black"
-              style={{ scrollbarWidth: "none" }}
-            >
-              {children}
-            </div>
+            {children}
           </SmoothScroll>
         </StickyRefsProvider>
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useStickyRefs } from "./utils/useStickyRefs";
@@ -9,10 +10,6 @@ import { customEase } from "./utils/anim";
 const links = [
   { url: "/about", title: "ABOUT" },
   { url: "/blog", title: "BLOG" },
-  {
-    url: "https://www.linkedin.com/in/ethn1ee/",
-    title: "LINKEDIN",
-  },
 ];
 
 const NavBar = () => {
@@ -26,20 +23,27 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-center h-[60px] bg-base-black z-10">
-      <div className="flex justify-between items-center w-full">
-        {/* LOGO */}
-        <p ref={logoRef}>
-          <Link href="/">ETHAN LEE</Link>
-        </p>
-        {/* LINKS */}
-        <div className="flex gap-ml items-center">
-          {links.map((link, index) => (
-            <NavLink key={link.url} link={link} />
-          ))}
-        </div>
+    <motion.div
+      initial={{ y: -60 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: customEase }}
+      className="w-full flex items-center justify-between h-[60px] bg-base-black z-10"
+    >
+      {/* LOGO */}
+      <div ref={logoRef} className="cursor-hover w-8 h-8 relative">
+        <motion.div whileTap={{ scale: 0.8 }} className="w-full h-full">
+          <Link href="/">
+            <Image src="/logo.svg" alt="logo" fill />
+          </Link>
+        </motion.div>
       </div>
-    </div>
+      {/* LINKS */}
+      <div className="flex gap-ml items-center h-fit">
+        {links.map((link, index) => (
+          <NavLink key={link.url} link={link} />
+        ))}
+      </div>
+    </motion.div>
   );
 };
 
@@ -67,6 +71,7 @@ const NavLink = ({ link }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         ref={navRef}
+        whileTap={{ scale: 0.8 }}
         className="cursor-underline flex flex-col gap-xxs h-4 overflow-hidden"
       >
         <div className="flex">

@@ -1,3 +1,5 @@
+import { cubicBezier } from "framer-motion";
+
 export default function anim(variants) {
   return {
     initial: "initial",
@@ -7,4 +9,4 @@ export default function anim(variants) {
   };
 }
 
-export const customEase = [0.65, 0.05, 0.36, 1];
+export const customEase = cubicBezier(0.18, 0.43, 0.55, 0.99);

@@ -18,14 +18,12 @@ const Cursor = () => {
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const [isUnderline, setIsUnderline] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
   const [elementStyle, setElementStyle] = useState({
     borderRadius: 0,
     backgroundColor: "#FAFAFA",
   });
-  const [textContent, setTextContent] = useState("");
 
   const mouse = {
     x: useMotionValue(0),
@@ -39,19 +37,18 @@ const Cursor = () => {
   };
 
   const defaultCursorStyle = {
-    width: 12,
-    height: 12,
-    opacity: 1,
-    borderRadius: 0,
     left: useSmoothMouse ? smoothMouse.x : mouse.x,
     top: useSmoothMouse ? smoothMouse.y : mouse.y,
-    backgroundColor: "#FAFAFA",
+    width: 8,
+    height: 8,
     border: "none",
+    borderRadius: "0px",
+    opacity: 1,
+    padding: "0px",
+    backgroundColor: "#FAFAFAff",
+    mixBlendMode: "difference",
     display: "block",
-
-    initial: { scale: 1 },
-    animate: { scale: 0.1, transition: { duration: 1 } },
-    exit: { scale: 1, transition: { duration: 1 } },
+    boxSizing: "content-box",
   };
 
   const [cursorStyle, setCursorStyle] = useState(defaultCursorStyle);
@@ -61,7 +58,17 @@ const Cursor = () => {
       height: 1,
     },
     textpointer: {
-      width: "2px",
+      width: 2,
+    },
+    hover: {
+      backgroundColor: "#FAFAFA22",
+      borderRadius: "100px",
+      padding: "10px",
+    },
+    experienceCard: {
+      height: 2,
+      width: 10,
+      borderRadius: 10,
     },
     hidden: {
       opacity: 0,
@@ -73,14 +80,6 @@ const Cursor = () => {
     duration: 0.2,
     width: { duration: 0.2 },
     height: { duration: 0.2 },
-    backgroundColor: {
-      duration: 0.5,
-      delay: 0,
-    },
-    border: {
-      duration: 0.2,
-      delay: 0,
-    },
     display: {
       duration: 0,
       delay: 0,
@@ -96,7 +95,6 @@ const Cursor = () => {
 
     setCursorStyle(defaultCursorStyle);
     setIsHovered(false);
-    setIsUnderline(false);
     setIsHidden(false);
 
     stickyElements.forEach((elementRef) => {
@@ -116,7 +114,6 @@ const Cursor = () => {
           let cursorType = "default";
 
           if (elementRef.current.className.includes("cursor-underline")) {
-            setIsUnderline(true);
             cursorType = "underline";
           } else if (elementRef.current.className.includes("cursor-hidden")) {
             setIsHidden(true);
@@ -125,27 +122,29 @@ const Cursor = () => {
             elementRef.current.className.includes("cursor-textpointer")
           ) {
             cursorType = "textpointer";
+          } else if (
+            elementRef.current.className.includes("cursor-experience-card")
+          ) {
+            cursorType = "experienceCard";
+          } else if (elementRef.current.className.includes("cursor-hover")) {
+            cursorType = "hover";
           }
 
+          // Center cursor to element
+          const center = { x: left + width / 2, y: top + height / 2 };
+          mouse.x.set(center.x);
+          mouse.y.set(center.y);
+
+          // Apply global cursor style
           setCursorStyle({
             ...defaultCursorStyle,
             width: width,
             height: height,
             borderRadius: elementStyle.borderRadius,
+            ...cursorVariants[cursorType],
           });
 
-          // TODO: Make cursorTransition a state as well
-
-          const center = { x: left + width / 2, y: top + height / 2 };
-
-          setCursorStyle((prev) => ({
-            ...prev,
-            ...cursorVariants[cursorType],
-          }));
-
-          mouse.x.set(center.x);
-          mouse.y.set(center.y);
-
+          // Apply calculated styles
           switch (cursorType) {
             case "underline":
               setCursorStyle((prev) => ({
@@ -163,13 +162,18 @@ const Cursor = () => {
               }));
               mouse.x.set(clientX);
               mouse.y.set(clientY);
+              break;
 
-            default:
+            case "experienceCard":
               setCursorStyle((prev) => ({
                 ...prev,
-                backgroundColor: "#FAFAFAff",
-                border: "0px solid #FAFAFA00",
+                opacity: elementStyle.opacity,
               }));
+              mouse.x.set(left + width + 13);
+              mouse.y.set(top + 8.5);
+              break;
+
+            default:
               break;
           }
         }
@@ -194,28 +198,25 @@ const Cursor = () => {
 
   useEffect(() => {
     window.addEventListener("mousemove", manageMouseMove);
+    window.addEventListener("click", manageMouseMove);
     return () => {
       window.removeEventListener("mousemove", manageMouseMove);
+      window.removeEventListener("click", manageMouseMove);
     };
   });
 
   return (
-    <>
-      <motion.div
-        className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
-        style={cursorStyle}
-        initial={cursorStyle}
-        animate={cursorStyle}
-        transition={cursorTransition}
-      ></motion.div>
-      <motion.div
-        className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
-        style={cursorStyle}
-        initial={cursorStyle}
-        animate={cursorStyle}
-        transition={cursorTransition}
-      ></motion.div>
-    </>
+    <AnimatePresence>
+      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+        <motion.div
+          className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+          style={cursorStyle}
+          initial={cursorStyle}
+          animate={cursorStyle}
+          transition={cursorTransition}
+        ></motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
