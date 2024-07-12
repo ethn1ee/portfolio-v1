@@ -3,21 +3,20 @@
 import {
   AnimatePresence,
   motion,
-  transform,
   useMotionValue,
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useStickyRefs } from "./utils/useStickyRefs";
-import { customEase } from "./utils/anim";
 
 const Cursor = () => {
   const { stickyElements } = useStickyRefs();
 
   const useSmoothMouse = true;
 
-  const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
+  const [isHovered, setIsHovered] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
   const [elementStyle, setElementStyle] = useState({
@@ -26,8 +25,8 @@ const Cursor = () => {
   });
 
   const mouse = {
-    x: useMotionValue(0),
-    y: useMotionValue(0),
+    x: useMotionValue(20),
+    y: useMotionValue(20),
   };
 
   const smoothOptions = { damping: 8, stiffness: 100, mass: 0.1 };
@@ -39,8 +38,8 @@ const Cursor = () => {
   const defaultCursorStyle = {
     left: useSmoothMouse ? smoothMouse.x : mouse.x,
     top: useSmoothMouse ? smoothMouse.y : mouse.y,
-    width: 8,
-    height: 8,
+    width: 24,
+    height: 24,
     border: "none",
     borderRadius: "0px",
     opacity: 1,
@@ -49,6 +48,7 @@ const Cursor = () => {
     mixBlendMode: "difference",
     display: "block",
     boxSizing: "content-box",
+    transformOrigin: "center",
   };
 
   const [cursorStyle, setCursorStyle] = useState(defaultCursorStyle);
@@ -91,6 +91,8 @@ const Cursor = () => {
   };
 
   const manageMouseMove = (e) => {
+    if (isTouchDevice) return;
+
     const { clientX, clientY } = e;
 
     setCursorStyle(defaultCursorStyle);
@@ -185,15 +187,6 @@ const Cursor = () => {
       mouse.x.set(clientX);
       mouse.y.set(clientY);
     }
-
-    const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0;
-
-    if (isTouchDevice) {
-      setCursorStyle(cursorVariants.hidden);
-    }
   };
 
   useEffect(() => {
@@ -205,17 +198,27 @@ const Cursor = () => {
     };
   });
 
+  useEffect(() => {
+    setIsTouchDevice(
+      "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+    );
+  }, []);
+
   return (
     <AnimatePresence>
-      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-        <motion.div
-          className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
-          style={cursorStyle}
-          initial={cursorStyle}
-          animate={cursorStyle}
-          transition={cursorTransition}
-        ></motion.div>
-      </motion.div>
+      {!isTouchDevice && (
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+          <motion.div
+            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+            style={cursorStyle}
+            initial={cursorStyle}
+            animate={cursorStyle}
+            transition={cursorTransition}
+          ></motion.div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 };
