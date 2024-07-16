@@ -1,11 +1,13 @@
+import LeftSidebar from "./leftSidebar";
+import RightSidebar from "./rightSidebar";
+
 const Blog = () => {
-  return (
-    <main>
-      <div className="w-full h-[calc(100vh-60px)] flex items-center justify-center">
-        <h4>Blog Coming Soon!</h4>
-      </div>
-    </main>
-  );
+  return <main>
+
+    <LeftSidebar />
+    <RightSidebar />
+  </main>;
+
 };
 
 export default Blog;
