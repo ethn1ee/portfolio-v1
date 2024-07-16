@@ -7,6 +7,7 @@ const Blog = () => {
     <LeftSidebar />
     <RightSidebar />
   </main>;
+
 };
 
 export default Blog;
