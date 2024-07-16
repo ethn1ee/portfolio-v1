@@ -5,8 +5,35 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useStickyRefs } from "@/components/utils/useStickyRefs";
 import { customEase } from "@/components/utils/anim";
+import { animate, stagger } from "framer-motion";
 
-export const LinkButton = ({ link }) => {
+const LinkButtons = () => {
+  const links = [
+    { url: "./Ethan_Lee_resume.pdf", title: "RESUME" },
+    { url: "https://github.com/ethn1ee", title: "GITHUB" },
+    { url: "https://www.linkedin.com/in/ethn1ee/", title: "LINKEDIN" },
+  ];
+
+  const staggerButton = stagger(0.1, { startDelay: 1 });
+
+  useEffect(() => {
+    animate(
+      ".stagger-button",
+      { opacity: [0, 1], y: [100, 0] },
+      { delay: staggerButton, ease: customEase, duration: 1 }
+    );
+  }, []);
+  return (
+    <div className="flex gap-l w-[30vw] fixed bottom-ml z-20">
+      {links.map((link) => (
+        <LinkButton key={link.url} link={link} />
+      ))}
+      <EmailButton />
+    </div>
+  );
+};
+
+const LinkButton = ({ link }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const navRef = useRef();
@@ -65,7 +92,7 @@ export const LinkButton = ({ link }) => {
   );
 };
 
-export const EmailButton = () => {
+const EmailButton = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -155,3 +182,5 @@ export const EmailButton = () => {
     </motion.div>
   );
 };
+
+export default LinkButtons;
