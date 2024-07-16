@@ -1,3 +1,4 @@
+import Content from "./content";
 import LeftSidebar from "./leftSidebar";
 import RightSidebar from "./rightSidebar";
 
@@ -6,6 +7,7 @@ const Blog = () => {
 
     <LeftSidebar />
     <RightSidebar />
+    <Content />
   </main>;
 
 };
