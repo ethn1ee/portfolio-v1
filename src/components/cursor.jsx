@@ -7,7 +7,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useStickyRefs } from "./utils/useStickyRefs";
+import { useStickyRefs } from "../utils/useStickyRefs";
 
 const Cursor = () => {
   const { stickyElements } = useStickyRefs();
@@ -211,7 +211,7 @@ const Cursor = () => {
       {!isTouchDevice && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
           <motion.div
-            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border mix-blend-difference z-40"
             style={cursorStyle}
             initial={cursorStyle}
             animate={cursorStyle}

@@ -2,10 +2,10 @@
 
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import anim, { customEase } from "./utils/anim";
+import anim, { customEase } from "@/utils/anim";
 import Image from "next/image";
 import { projects } from "@/data/projects";
-import { useStickyRefs } from "./utils/useStickyRefs";
+import { useStickyRefs } from "@/utils/useStickyRefs";
 
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -111,20 +111,6 @@ const ProjectCard = ({
       ease: customEase,
       delay: 0,
       duration: 1,
-      // maxHeight: {
-      //   delay: 0,
-      //   duration: expand ? 0.7 : 0.5,
-      // },
-      // opacity: {
-      //   delay: expand ? 0 : 0.3,
-      // },
-      // display: {
-      //   delay: expand ? 0 : 0.5,
-      //   duration: 0,
-      // },
-      // rotateX: {
-      //   delay: 0.1,
-      // },
     },
   };
 

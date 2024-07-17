@@ -5,6 +5,7 @@ export default function anim(variants) {
     initial: "initial",
     animate: "animate",
     exit: "exit",
+    transition: "transition",
     variants,
   };
 }

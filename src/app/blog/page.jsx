@@ -1,13 +1,25 @@
-import LeftSidebar from "./leftSidebar";
-import RightSidebar from "./rightSidebar";
+"use client";
+
+import { createContext, useState } from "react";
+import LeftSidebar from "./components/leftSidebar";
+import RightSidebar from "./components/rightSidebar";
+import Content from "./components/content";
+import { posts } from "@/data/blog";
+
+export const CurrentPostContext = createContext();
 
 const Blog = () => {
-  return <main>
+  const [currentPost, setCurrentPost] = useState("introduction");
 
-    <LeftSidebar />
-    <RightSidebar />
-  </main>;
-
+  return (
+    <main>
+      <CurrentPostContext.Provider value={{ currentPost, setCurrentPost }}>
+        <LeftSidebar />
+        {currentPost && <RightSidebar />}
+        <Content />
+      </CurrentPostContext.Provider>
+    </main>
+  );
 };
 
 export default Blog;

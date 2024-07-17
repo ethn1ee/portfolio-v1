@@ -1,7 +1,7 @@
 "use client";
 
-import { customEase } from "@/components/utils/anim";
-import { useStickyRefs } from "@/components/utils/useStickyRefs";
+import { customEase } from "@/utils/anim";
+import { useStickyRefs } from "@/utils/useStickyRefs";
 import { experiences } from "@/data/experiences";
 import {
   useMotionValueEvent,

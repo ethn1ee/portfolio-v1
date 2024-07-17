@@ -1,8 +1,9 @@
 import { Lato } from "next/font/google";
 import "./globals.css";
-import GlobalComponents from "@/components/utils/globalComponents";
-import { StickyRefsProvider } from "@/components/utils/useStickyRefs";
-import SmoothScroll from "@/components/utils/smoothScroll";
+import { StickyRefsProvider } from "@/utils/useStickyRefs";
+import SmoothScroll from "@/utils/smoothScroll";
+import NavBar from "@/components/navBar";
+import Cursor from "@/components/cursor";
 
 const font = Lato({
   subsets: ["latin"],
@@ -18,12 +19,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={font.className}>
-        <StickyRefsProvider>
-          <GlobalComponents />
-          <SmoothScroll>
+        <SmoothScroll>
+          <StickyRefsProvider>
+            <NavBar />
+            <Cursor />
             {children}
-          </SmoothScroll>
-        </StickyRefsProvider>
+          </StickyRefsProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

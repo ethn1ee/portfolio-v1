@@ -1,6 +1,6 @@
 "use client";
 
-import { customEase } from "@/components/utils/anim";
+import { customEase } from "@/utils/anim";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 

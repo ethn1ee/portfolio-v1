@@ -9,7 +9,7 @@ export const StickyRefsProvider = ({ children }) => {
 
   const addStickyElement = (elementRef) => {
     setStickyElements((prevElements) => [...prevElements, elementRef]);
-  };
+  }; 
 
   const removeStickyElement = (elementRef) => {
     setStickyElements((prevElements) =>
