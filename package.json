@@ -11,10 +11,15 @@
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
     "framer-motion": "^11.2.12",
+    "fs": "^0.0.1-security",
+    "gray-matter": "^4.0.3",
     "lenis": "^1.1.6",
+    "markdown-to-jsx": "^7.4.7",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "eslint": "^8",

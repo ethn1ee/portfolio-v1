@@ -1,13 +1,30 @@
 "use client";
 
-import { useContext, useRef, useEffect } from "react";
-import { CurrentPostContext } from "../page";
+import { useContext, useRef, useEffect, useState } from "react";
 import { useStickyRefs } from "@/utils/useStickyRefs";
 import { AnimatePresence, motion } from "framer-motion";
 import anim, { customEase } from "@/utils/anim";
+import { usePathname } from "next/navigation";
 
-const RightSidebar = () => {
-  const { currentPost } = useContext(CurrentPostContext);
+const RightSidebar = ({ postData }) => {
+  const pathname = usePathname();
+  const isPost = pathname.includes("/blog/post/");
+  let collectionName, slug;
+  const [currentPost, setCurrentPost] = useState(null);
+
+  useEffect(() => {
+    if (isPost) {
+      collectionName = pathname.split("/")[3];
+      slug = pathname.split("/")[4];
+      setCurrentPost(
+        postData
+          .find((collection) => collection.name === collectionName)
+          .posts.find((post) => post.metadata.slug === slug)
+      );
+    } else {
+      setCurrentPost(null);
+    }
+  }, []);
 
   const slideInVariant = {
     initial: { x: 50, opacity: 0 },
@@ -18,18 +35,18 @@ const RightSidebar = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {typeof currentPost !== "string" && (
+      {isPost && (
         <motion.div
           {...anim(slideInVariant)}
-          key={currentPost.metadata.title}
-          className="w-[16vw] h-[calc(100vh-60px)] fixed right-ml pt-ml"
+          key={pathname}
+          className="w-[16vw] h-[calc(100vh-60px)] fixed right-ml top-[60px] pt-ml"
         >
           {/* TAGS */}
           <div>
             <small className="font-bold">TAGS</small>
             <div className="mt-sm flex flex-wrap gap-sm">
-              {currentPost.tags.map((tag, index) => (
-                <Tag key={index} tag={tag} />
+              {currentPost?.metadata.tags.map((tag) => (
+                <Tag key={tag} tag={tag} />
               ))}
             </div>
           </div>
