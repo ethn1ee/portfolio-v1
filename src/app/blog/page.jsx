@@ -5,7 +5,6 @@ import PostCard from "./components/postCard";
 import { useStickyRefs } from "@/utils/useStickyRefs";
 import { motion } from "framer-motion";
 import { PostDataContext } from "./utils/postDataContext";
-
 const Blog = () => {
   const postData = useContext(PostDataContext);
   const allPostButtonRef = useRef(null);
