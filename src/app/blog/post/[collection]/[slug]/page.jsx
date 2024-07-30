@@ -1,15 +1,19 @@
 import getFormattedDate from "@/app/blog/utils/getFormattedDate";
 import "./article.scss";
-import StyleCodeBlocks from "./components/codeBlock";
 import {
   getPostByCollectionAndSlug,
   getPostData,
 } from "@/app/blog/utils/postUtils";
 
+import React from "react";
+import Markdown from "markdown-to-jsx";
+import CodeBlock from "./components/codeBlock";
+
+const postData = getPostData();
+
 const Post = ({ params }) => {
   const collection = params.collection;
   const slug = params.slug;
-  const postData = getPostData();
   const post = getPostByCollectionAndSlug(collection, slug);
   const formattedDate = getFormattedDate(post.metadata.date);
 
@@ -25,32 +29,23 @@ const Post = ({ params }) => {
         <div className="text-highlight mt-s">{post.metadata.subtitle}</div>
       </header>
 
-      {/* <StyleCodeBlocks> */}
-        <article
-          className={`mt-l markdown-body`}
-          dangerouslySetInnerHTML={{ __html: post.contentHTML }}
-        ></article>
-      {/* </StyleCodeBlocks> */}
+      <article className={`mt-l markdown-body pb-xl`}>
+        <Markdown
+          options={{
+            overrides: {
+              pre: CodeBlock,
+            },
+          }}
+        >
+          {post.content}
+        </Markdown>
+      </article>
     </main>
   );
 };
 
+
 export const generateStaticParams = async () => {
-  const postData = getPostData();
-
-  // const paths = postData
-  //   .map((collection) => {
-  //     return collection.posts.map((post) => {
-  //       return { params: { collection: collection.name, slug: post.metadata.slug } };
-  //     });
-  //   })
-  //   .flat();
-
-  // return {
-  //   paths,
-  //   fallback: false,
-  // };
-
   const params = postData
     .map((collection) => {
       return collection.posts.map((post) => {

@@ -213,7 +213,7 @@ const Cursor = () => {
           <motion.div
             className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border mix-blend-difference z-10"
             style={cursorStyle}
-            initial={cursorStyle}
+            // initial={cursorStyle}
             animate={cursorStyle}
             transition={cursorTransition}
           ></motion.div>

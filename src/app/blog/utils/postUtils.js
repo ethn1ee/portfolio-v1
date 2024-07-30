@@ -54,7 +54,7 @@ export const getPostByCollectionAndSlug = (collection, slug) => {
   const stat = fs.statSync(fullPath);
   const creationDate = stat.birthtime;
   const { data, content } = matter(fileContents);
-  const processedContent = remark().use(html).processSync(content).toString();
+  // const processedContent = remark().use(html).processSync(content).toString();
 
   return {
     metadata: {
@@ -63,7 +63,7 @@ export const getPostByCollectionAndSlug = (collection, slug) => {
       date: creationDate,
       ...data,
     },
-    contentHTML: processedContent,
+    content,
   };
 };
 
