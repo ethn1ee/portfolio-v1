@@ -3,7 +3,7 @@
 import { useStickyRefs } from "@/utils/useStickyRefs";
 import { cloneElement, useEffect, useRef } from "react";
 
-export const StickyWrapper = ({ children, cursorType }) => {
+export const StickyWrapper = ({ children, cursorType, hideCursor = false }) => {
   const { addStickyElement, removeStickyElement } = useStickyRefs();
   const ref = useRef();
 
@@ -14,7 +14,9 @@ export const StickyWrapper = ({ children, cursorType }) => {
 
   return cloneElement(children, {
     ref,
-    className: `cursor-${cursorType} ${children.props.className || ''}`
+    className: `cursor-${cursorType} ${hideCursor && "cursor-none"} ${
+      children.props?.className || ""
+    }`,
   });
 };
 
