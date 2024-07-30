@@ -1,4 +1,4 @@
-import { Lato, Fira_Sans } from "next/font/google";
+import { Lato, Sora } from "next/font/google";
 import "./globals.css";
 import { StickyRefsProvider } from "@/utils/useStickyRefs";
 import SmoothScroll from "@/utils/smoothScroll";
@@ -10,9 +10,13 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
-const firaSans = Fira_Sans({
+// const firaSans = Fira_Sans({
+//   subsets: ["latin"],
+//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+// });
+
+const sora = Sora({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata = {
@@ -23,7 +27,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={firaSans.className}>
+      <body className={sora.className}>
         <SmoothScroll>
           <StickyRefsProvider>
             <NavBar />

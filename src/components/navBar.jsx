@@ -23,11 +23,11 @@ const NavBar = () => {
   }, []);
 
   return (
-    <motion.div
+    <motion.nav
       initial={{ y: -60 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: customEase }}
-      className="w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"
+      className="w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] z-40"
     >
       {/* LOGO */}
       <div ref={logoRef} className="cursor-hover w-8 h-8 relative">
@@ -43,7 +43,7 @@ const NavBar = () => {
           <NavLink key={link.url} link={link} />
         ))}
       </div>
-    </motion.div>
+    </motion.nav>
   );
 };
 

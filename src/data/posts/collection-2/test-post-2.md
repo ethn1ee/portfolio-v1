@@ -1,7 +1,7 @@
 ---
 title: "Title 2"
 subtitle: "Subtitle 2"
-date: "2023-07-25"
+thumbnail: ""
 tags: ["lorem", "ipsum"]
 ---
 

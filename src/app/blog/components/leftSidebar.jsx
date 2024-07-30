@@ -1,13 +1,16 @@
 "use client";
 
+import { useContext } from "react";
 import { GalleryUnit, IntroductionUnit, PostListUnit } from "./postListUnit";
+import { PostDataContext } from "../utils/postDataContext";
 
-const LeftSidebar = ({ postData }) => {
+const LeftSidebar = () => {
+  const postData = useContext(PostDataContext);
+
   return (
-    <div className="w-[16vw] h-[calc(100vh-60px)] fixed pt-ml">
+    <aside className="w-[16vw] h-[calc(100vh-60px)] fixed pt-ml">
       {/* COLLECTION LIST */}
       <div className="flex flex-col gap-l">
-        
         {/* INTRO TO BLOG */}
         <div className="h-fit w-full">
           <small className="font-bold uppercase select-none">Welcome!</small>
@@ -24,14 +27,16 @@ const LeftSidebar = ({ postData }) => {
           <CollectionListUnit collection={collection} key={index} />
         ))}
       </div>
-    </div>
+    </aside>
   );
 };
 
 const CollectionListUnit = ({ collection }) => {
   return (
     <div className="h-fit w-full">
-      <small className="font-bold uppercase select-none">{collection.name}</small>
+      <small className="font-bold uppercase select-none">
+        {collection.name}
+      </small>
       <div className="flex flex-col mt-sm">
         {collection.posts.map((post, index) => (
           <PostListUnit

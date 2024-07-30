@@ -14,7 +14,7 @@ const Template = ({ children }) => {
         // initial={{ opacity: 0, scale: 0.97 }}
         // animate={{ opacity: 1, scale: 1 }}
         // transition={{ duration: 0.5, ease: customEase }}
-        className="w-full relative mt-[60px] bg-base-black"
+        className="w-full relative mt-[60px] bg-base-black overflow-y-auto"
       >
         {children}
       </motion.div>

@@ -1,5 +1,6 @@
 import LeftSidebar from "./components/leftSidebar";
 import RightSidebar from "./components/rightSidebar";
+import { PostDataProvider } from "./utils/postDataContext";
 import { getPostData } from "./utils/postUtils";
 
 const postData = getPostData();
@@ -7,14 +8,11 @@ const postData = getPostData();
 export default function Layout({ children }) {
   return (
     <>
-      <LeftSidebar postData={postData} />
-      <div
-        style={{ width: false ? "64vw" : "50vw" }}
-        className="mx-[25vw] pt-ml"
-      >
-        {children}
-      </div>
-      <RightSidebar postData={postData} />
+      <PostDataProvider value={postData}>
+        <LeftSidebar />
+        <div className="relative left-[25vw] pt-ml">{children}</div>
+        <RightSidebar />
+      </PostDataProvider>
     </>
   );
 }

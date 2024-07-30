@@ -17,7 +17,7 @@ const navActiveStyle = {
   paddingLeft: 10,
   paddingRight: 10,
   color: "#fafafa",
-  backgroundColor: "#2B2829ff",
+  backgroundColor: "#151314",
 };
 
 export const PostListUnit = ({ slug, collection, title }) => {

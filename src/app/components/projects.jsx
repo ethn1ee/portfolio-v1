@@ -186,12 +186,12 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <h3
+            <h4
               ref={descRef}
               className="cursor-none cursor-textpointer font-light w-full md:w-1/2"
             >
               {project.description}
-            </h3>
+            </h4>
 
             {/* TAGS */}
             <div
@@ -244,9 +244,9 @@ const Tag = ({ item }) => {
 
   return (
     <motion.div
-      ref={tagRef}
+      // ref={tagRef}
       whileHover={{ backgroundColor: "#0A0A0B" }}
-      className="flex items-center justify-center py-s px-sm bg-neutral-900 shrink-0 select-none"
+      className="flex items-center justify-center py-s px-sm shrink-0 select-none relative z-20 bg-base-black border border-neutral-900 rounded-md"
     >
       <p className="font-medium">{item}</p>
     </motion.div>

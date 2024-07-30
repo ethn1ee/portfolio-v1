@@ -1,12 +1,14 @@
 "use client";
 
-import { useContext, useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { useStickyRefs } from "@/utils/useStickyRefs";
 import { AnimatePresence, motion } from "framer-motion";
 import anim, { customEase } from "@/utils/anim";
 import { usePathname } from "next/navigation";
+import { getPost, PostDataContext } from "../utils/postDataContext";
 
-const RightSidebar = ({ postData }) => {
+const RightSidebar = () => {
+  const postData = useContext(PostDataContext);
   const pathname = usePathname();
   const isPost = pathname.includes("/blog/post/");
   let collectionName, slug;
@@ -16,11 +18,7 @@ const RightSidebar = ({ postData }) => {
     if (isPost) {
       collectionName = pathname.split("/")[3];
       slug = pathname.split("/")[4];
-      setCurrentPost(
-        postData
-          .find((collection) => collection.name === collectionName)
-          .posts.find((post) => post.metadata.slug === slug)
-      );
+      setCurrentPost(getPost(postData, collectionName, slug));
     } else {
       setCurrentPost(null);
     }
@@ -36,7 +34,7 @@ const RightSidebar = ({ postData }) => {
   return (
     <AnimatePresence mode="wait">
       {isPost && (
-        <motion.div
+        <motion.aside
           {...anim(slideInVariant)}
           key={pathname}
           className="w-[16vw] h-[calc(100vh-60px)] fixed right-ml top-[60px] pt-ml"
@@ -50,31 +48,31 @@ const RightSidebar = ({ postData }) => {
               ))}
             </div>
           </div>
-        </motion.div>
+        </motion.aside>
       )}
     </AnimatePresence>
   );
 };
 
 const Tag = ({ tag }) => {
-  const tagRef = useRef();
-
+  const ref = useRef();
   const { addStickyElement, removeStickyElement } = useStickyRefs();
 
   useEffect(() => {
-    addStickyElement(tagRef);
-
-    return () => removeStickyElement(tagRef);
+    addStickyElement(ref);
+    return () => {
+      removeStickyElement(ref);
+    };
   }, [tag]);
 
   return (
-    <motion.div
-      ref={tagRef}
-      whileHover={{ backgroundColor: "#0A0A0B" }}
-      className="flex items-center justify-center py-s px-sm bg-neutral-900 shrink-0 select-none w-fit"
+    <motion.small
+      ref={ref}
+      whileHover={{ color: "#fafafa" }}
+      className="flex items-center justify-center py-s px-sm text-neutral-200 shrink-0 cursor-pointer w-fit bg-base-black relative z-20 backdrop-blur-xl border border-neutral-900 rounded-md"
     >
-      <p className="font-medium">{tag}</p>
-    </motion.div>
+      {tag}
+    </motion.small>
   );
 };
 

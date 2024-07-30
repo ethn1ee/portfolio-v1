@@ -51,14 +51,19 @@ export const getSlugsByCollection = (collection) => {
 export const getPostByCollectionAndSlug = (collection, slug) => {
   const fullPath = path.join(postsDirectory, collection, slug + ".md");
   const fileContents = fs.readFileSync(fullPath, "utf8");
+  const stat = fs.statSync(fullPath);
+  const creationDate = stat.birthtime;
   const { data, content } = matter(fileContents);
+  const processedContent = remark().use(html).processSync(content).toString();
 
   return {
     metadata: {
+      collection,
       slug,
+      date: creationDate,
       ...data,
     },
-    content: content,
+    contentHTML: processedContent,
   };
 };
 
