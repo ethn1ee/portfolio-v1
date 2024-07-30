@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useStickyRefs } from "@/components/utils/useStickyRefs";
-import { customEase } from "@/components/utils/anim";
+import { useStickyRefs } from "@/utils/useStickyRefs";
+import { customEase } from "@/utils/anim";
 import { animate, stagger } from "framer-motion";
 
 const LinkButtons = () => {
@@ -118,9 +118,9 @@ const EmailButton = () => {
       onClick={handleCopy}
       ref={navRef}
       whileTap={{ scale: 0.8 }}
-      className="cursor-underline cursor-pointer flex flex-col gap-xxs h-5 overflow-hidden stagger-button"
+      className="cursor-underline cursor-pointer flex flex-col w-fit gap-xxs h-5 overflow-y-clip stagger-button"
     >
-      <div className="flex">
+      <div className="flex w-fit">
         {"EMAIL".split("").map((letter, index) => (
           <motion.p
             key={index}
@@ -139,7 +139,7 @@ const EmailButton = () => {
         ))}
       </div>
 
-      <div className="flex">
+      <div className="flex w-fit">
         {"COPY?".split("").map((letter, index) => (
           <motion.p
             key={index}
@@ -158,27 +158,25 @@ const EmailButton = () => {
         ))}
       </div>
 
-      <AnimatePresence>
-        {isCopied && (
-          <div className="flex">
-            {"COPIED!".split("").map((letter, index) => (
-              <motion.p
-                key={index}
-                initial={{ y: 0 }}
-                animate={{ y: isCopied ? -40 : 0 }}
-                exit={{ y: 0 }}
-                transition={{
-                  ease: customEase,
-                  duration: 0.5,
-                  delay: 0.02 * index,
-                }}
-              >
-                {letter}
-              </motion.p>
-            ))}
-          </div>
-        )}
-      </AnimatePresence>
+      {isCopied && (
+        <div className="flex w-fit">
+          {"COPIED!".split("").map((letter, index) => (
+            <motion.p
+              key={index}
+              initial={{ y: 0 }}
+              animate={{ y: isCopied ? -40 : 0 }}
+              exit={{ y: 0 }}
+              transition={{
+                ease: customEase,
+                duration: 0.5,
+                delay: 0.02 * index,
+              }}
+            >
+              {letter}
+            </motion.p>
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 };

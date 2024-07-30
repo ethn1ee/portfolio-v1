@@ -7,7 +7,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useStickyRefs } from "./utils/useStickyRefs";
+import { useStickyRefs } from "../utils/useStickyRefs";
 
 const Cursor = () => {
   const { stickyElements } = useStickyRefs();
@@ -38,8 +38,8 @@ const Cursor = () => {
   const defaultCursorStyle = {
     left: useSmoothMouse ? smoothMouse.x : mouse.x,
     top: useSmoothMouse ? smoothMouse.y : mouse.y,
-    width: 24,
-    height: 24,
+    width: 18,
+    height: 18,
     border: "none",
     borderRadius: "0px",
     opacity: 1,
@@ -211,7 +211,7 @@ const Cursor = () => {
       {!isTouchDevice && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
           <motion.div
-            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border"
+            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border mix-blend-difference z-10"
             style={cursorStyle}
             initial={cursorStyle}
             animate={cursorStyle}

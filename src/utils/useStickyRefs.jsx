@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const StickyRefsContext = createContext();
 
@@ -9,7 +9,7 @@ export const StickyRefsProvider = ({ children }) => {
 
   const addStickyElement = (elementRef) => {
     setStickyElements((prevElements) => [...prevElements, elementRef]);
-  };
+  }; 
 
   const removeStickyElement = (elementRef) => {
     setStickyElements((prevElements) =>

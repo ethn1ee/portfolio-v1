@@ -2,7 +2,7 @@
 
 import { Playfair_Display_SC } from "next/font/google";
 import { animate, motion, stagger } from "framer-motion";
-import { customEase } from "@/components/utils/anim";
+import { customEase } from "@/utils/anim";
 import { useEffect } from "react";
 
 const playfairDisplaySC = Playfair_Display_SC({

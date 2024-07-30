@@ -1,0 +1,43 @@
+.markdown-body {
+  * {
+    @apply text-neutral-100;
+    line-height: 1.75;
+  }
+
+  h1 {
+    @apply text-xl text-base-white font-medium border-b border-b-base-white pb-xs my-m;
+  }
+
+  p {
+    @apply my-m;
+  }
+
+  code {
+    @apply bg-neutral-1000 px-xs py-xxs rounded-md border border-neutral-900 text-sm;
+  }
+
+  pre code {
+    @apply bg-transparent p-0 border-none rounded-none;
+  }
+
+  ul,
+  ol {
+    margin-left: 1.5rem;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  a {
+    @apply text-primary-400;
+    text-decoration: none;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

@@ -25,7 +25,6 @@ h1 {
   font-size: 28px;
   @apply md:text-[56px];
   font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 
@@ -33,7 +32,6 @@ h2 {
   font-size: 24px;
   @apply md:text-[48px];
   font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 
@@ -41,7 +39,6 @@ h3 {
   font-size: 20px;
   @apply md:text-[40px];
   font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 
@@ -49,7 +46,27 @@ h4 {
   font-size: 18px;
   @apply md:text-[32px];
   font-style: normal;
-  font-weight: 400;
+  line-height: 120%;
+}
+
+.text-hero {
+  font-size: 20px;
+  @apply md:text-[28px];
+  font-style: normal;
+  line-height: 120%;
+}
+
+.text-feature {
+  font-size: 18px;
+  @apply md:text-[24px];
+  font-style: normal;
+  line-height: 120%;
+}
+
+.text-highlight {
+  font-size: 16px;
+  @apply md:text-[18px];
+  font-style: normal;
   line-height: 120%;
 }
 
@@ -57,7 +74,6 @@ p {
   font-size: 14px;
   @apply md:text-[16px];
   font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 
@@ -65,7 +81,6 @@ small {
   font-size: 12px;
   @apply md:text-[14px];
   font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 

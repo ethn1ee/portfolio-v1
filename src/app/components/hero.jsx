@@ -9,7 +9,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { customEase } from "./utils/anim";
+import { customEase } from "@/utils/anim";
 
 const greatVibes = Great_Vibes({
   subsets: ["latin"],

@@ -1,13 +1,11 @@
 "use client";
 
-import Experiences from "./experiences";
-import HeroText from "./heroText";
-import LinkButtons from "./linkButtons";
-
+import Cursor from "@/components/cursor";
+import Experiences from "./components/experiences";
+import HeroText from "./components/heroText";
+import LinkButtons from "./components/linkButtons";
 
 const About = () => {
-  
-
   return (
     <main>
       {/* HERO TEXT */}
