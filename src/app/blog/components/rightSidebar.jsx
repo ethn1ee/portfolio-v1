@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useEffect, useState, useContext } from "react";
-import { useStickyRefs } from "@/utils/useStickyRefs";
+import { useEffect, useState, useContext } from "react";
+
 import { AnimatePresence, motion } from "framer-motion";
 import anim, { customEase } from "@/utils/anim";
 import { usePathname } from "next/navigation";
 import { getPost, PostDataContext } from "../utils/postDataContext";
+import StickyWrapper from "@/components/stickyWrapper";
 
 const RightSidebar = () => {
   const postData = useContext(PostDataContext);
@@ -55,24 +56,15 @@ const RightSidebar = () => {
 };
 
 const Tag = ({ tag }) => {
-  const ref = useRef();
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(ref);
-    return () => {
-      removeStickyElement(ref);
-    };
-  }, [tag]);
-
   return (
-    <motion.small
-      ref={ref}
-      whileHover={{ color: "#fafafa" }}
-      className="flex items-center justify-center py-s px-sm text-neutral-200 shrink-0 cursor-pointer w-fit bg-base-black relative z-20 backdrop-blur-xl border border-neutral-900 rounded-md"
-    >
-      {tag}
-    </motion.small>
+    <StickyWrapper>
+      <motion.small
+        whileHover={{ color: "#fafafa", borderColor: "#2b282900" }}
+        className="flex items-center justify-center py-s px-sm text-neutral-200 shrink-0 cursor-pointer w-fit bg-base-black relative z-20 backdrop-blur-xl border border-neutral-900 rounded-md"
+      >
+        {tag}
+      </motion.small>
+    </StickyWrapper>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Playfair_Display_SC } from "next/font/google";
-import { animate, motion, stagger } from "framer-motion";
+import { animate, stagger } from "framer-motion";
 import { customEase } from "@/utils/anim";
 import { useEffect } from "react";
 

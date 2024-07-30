@@ -1,4 +1,4 @@
-import { Lato, Sora } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.scss";
 import { StickyRefsProvider } from "@/utils/useStickyRefs";
 import SmoothScroll from "@/utils/smoothScroll";
@@ -8,10 +8,6 @@ import Cursor from "@/components/cursor";
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
-});
-
-const sora = Sora({
-  subsets: ["latin"],
 });
 
 export const metadata = {

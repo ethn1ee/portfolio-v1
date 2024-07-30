@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import anim, { customEase } from "@/utils/anim";
 import Image from "next/image";
 import { projects } from "@/data/projects";
-import { useStickyRefs } from "@/utils/useStickyRefs";
+import StickyWrapper from "@/components/stickyWrapper";
 
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -62,21 +62,7 @@ const ProjectCard = ({
 
   const expand = activeIndex === index;
 
-  const projectRef = useRef();
-  const descRef = useRef();
   const carouselRef = useRef();
-
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(projectRef);
-    addStickyElement(descRef);
-
-    return () => {
-      removeStickyElement(projectRef);
-      removeStickyElement(projectRef);
-    };
-  }, [project]);
 
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
 
@@ -134,47 +120,48 @@ const ProjectCard = ({
   return (
     <div id="projects" className="flex flex-col overflow-hidden">
       {/* HEADER */}
-      <motion.div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setActiveIndex(expand ? -1 : index)}
-        ref={projectRef}
-        className="w-full py-m relative flex items-center cursor-pointer select-none"
-      >
-        {/* TOP BORDER */}
+      <StickyWrapper>
         <motion.div
-          {...anim(topBorderVariant)}
-          transition={topBorderVariant.transition}
-          className="w-full h-[1px] opacity-100 absolute top-0 left-0 bg-base-white"
-        ></motion.div>
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setActiveIndex(expand ? -1 : index)}
+          className="w-full py-m relative flex items-center cursor-pointer select-none"
+        >
+          {/* TOP BORDER */}
+          <motion.div
+            {...anim(topBorderVariant)}
+            transition={topBorderVariant.transition}
+            className="w-full h-[1px] opacity-100 absolute top-0 left-0 bg-base-white"
+          ></motion.div>
 
-        {/* INFO */}
-        <div className="w-full flex justify-between items-center relative">
-          <div className="flex flex-1 justify-start">
-            <motion.p {...anim(hoverTextVariant)} className="">
-              {project.name}
-            </motion.p>
+          {/* INFO */}
+          <div className="w-full flex justify-between items-center relative">
+            <div className="flex flex-1 justify-start">
+              <motion.p {...anim(hoverTextVariant)} className="">
+                {project.name}
+              </motion.p>
+            </div>
+            <div className="flex flex-1 justify-start">
+              <p className="">
+                {project.category.map((category, index) => (
+                  <span className="text-inherit" key={index}>
+                    {category}
+                    {index < project.category.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </p>
+            </div>
+            <div className="flex flex-1 justify-end">
+              <p className="">{project.client}</p>
+            </div>
+            <div className="flex flex-1 justify-end">
+              <motion.p {...anim(hoverTextVariant)} className="">
+                {project.year}
+              </motion.p>
+            </div>
           </div>
-          <div className="flex flex-1 justify-start">
-            <p className="">
-              {project.category.map((category, index) => (
-                <span className="text-inherit" key={index}>
-                  {category}
-                  {index < project.category.length - 1 ? ", " : ""}
-                </span>
-              ))}
-            </p>
-          </div>
-          <div className="flex flex-1 justify-end">
-            <p className="">{project.client}</p>
-          </div>
-          <div className="flex flex-1 justify-end">
-            <motion.p {...anim(hoverTextVariant)} className="">
-              {project.year}
-            </motion.p>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </StickyWrapper>
 
       {/* CONTENT */}
       <AnimatePresence>
@@ -186,12 +173,11 @@ const ProjectCard = ({
             className="flex flex-col gap-l overflow-hidden"
           >
             {/* DESCRIPTION */}
-            <h4
-              ref={descRef}
-              className="cursor-none cursor-textpointer font-light w-full md:w-1/2"
-            >
-              {project.description}
-            </h4>
+            <StickyWrapper cursorType={"textpointer"}>
+              <h4 className="cursor-none font-light w-full md:w-1/2">
+                {project.description}
+              </h4>
+            </StickyWrapper>
 
             {/* TAGS */}
             <div
@@ -232,24 +218,15 @@ const ProjectCard = ({
 };
 
 const Tag = ({ item }) => {
-  const tagRef = useRef();
-
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(tagRef);
-
-    return () => removeStickyElement(tagRef);
-  }, [item]);
-
   return (
-    <motion.div
-      // ref={tagRef}
-      whileHover={{ backgroundColor: "#0A0A0B" }}
-      className="flex items-center justify-center py-s px-sm shrink-0 select-none relative z-20 bg-base-black border border-neutral-900 rounded-md"
-    >
-      <p className="font-medium">{item}</p>
-    </motion.div>
+    <StickyWrapper>
+      <motion.div
+        whileHover={{ backgroundColor: "#0A0A0B", borderColor: "#0A0A0B00" }}
+        className="flex items-center justify-center py-s px-sm shrink-0 select-none relative z-20 bg-base-black border border-neutral-900 rounded-md"
+      >
+        <p className="font-medium">{item}</p>
+      </motion.div>
+    </StickyWrapper>
   );
 };
 
@@ -260,16 +237,6 @@ const Thumbnail = ({
   setCurrentThumbnail,
   index,
 }) => {
-  const imgRef = useRef();
-
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(imgRef);
-
-    return () => removeStickyElement(imgRef);
-  }, [img]);
-
   const maxImgHeight = 500;
   const minImgHeight = 180;
   const aspectRatio = {
@@ -303,23 +270,24 @@ const Thumbnail = ({
   });
 
   return (
-    <motion.div
-      ref={imgRef}
-      whileHover={{ scale: 0.97 }}
-      transition={{ duration: 0.3 }}
-      onClick={() => {
-        if (currentThumbnail === index) return;
-        carouselRef.current.scrollBy({
-          left: currentThumbnail < index ? imgWidth - 20 : -imgWidth + 20,
-          behavior: "smooth",
-        });
-        setCurrentThumbnail(index);
-      }}
-      style={{ width: imgWidth, height: imgHeight }}
-      className="cursor-hidden cursor-pointer bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden snap-center"
-    >
-      {img && <Image src={img.src} alt="" fill className="object-cover" />}
-    </motion.div>
+    <StickyWrapper cursorType={"hidden"}>
+      <motion.div
+        whileHover={{ scale: 0.97 }}
+        transition={{ duration: 0.3 }}
+        onClick={() => {
+          if (currentThumbnail === index) return;
+          carouselRef.current.scrollBy({
+            left: currentThumbnail < index ? imgWidth - 20 : -imgWidth + 20,
+            behavior: "smooth",
+          });
+          setCurrentThumbnail(index);
+        }}
+        style={{ width: imgWidth, height: imgHeight }}
+        className=" cursor-pointer bg-neutral-400 rounded-lg shrink-0 relative overflow-hidden snap-center"
+      >
+        {img && <Image src={img.src} alt="" fill className="object-cover" />}
+      </motion.div>
+    </StickyWrapper>
   );
 };
 

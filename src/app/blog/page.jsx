@@ -2,18 +2,11 @@
 
 import { useContext, useEffect, useRef } from "react";
 import PostCard from "./components/postCard";
-import { useStickyRefs } from "@/utils/useStickyRefs";
 import { motion } from "framer-motion";
 import { PostDataContext } from "./utils/postDataContext";
+import StickyWrapper from "@/components/stickyWrapper";
 const Blog = () => {
   const postData = useContext(PostDataContext);
-  const allPostButtonRef = useRef(null);
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(allPostButtonRef);
-    return () => removeStickyElement(allPostButtonRef);
-  }, []);
 
   return (
     <main className="w-[64vw]">
@@ -28,13 +21,14 @@ const Blog = () => {
       <section className="mt-[10vh]">
         <div className="flex items-center justify-between">
           <div className="text-feature">Recent Posts</div>
-          <motion.p
-            ref={allPostButtonRef}
-            whileTap={{ scale: 0.8 }}
-            className="cursor-underline font-bold text-neutral-400 cursor-pointer"
-          >
-            See all
-          </motion.p>
+          <StickyWrapper cursorType={"underline"}>
+            <motion.p
+              whileTap={{ scale: 0.8 }}
+              className="font-bold text-neutral-400 cursor-pointer"
+            >
+              See all
+            </motion.p>
+          </StickyWrapper>
         </div>
         <div id="recent-posts" className="grid grid-cols-3 mt-l gap-sm">
           {postData.map((collection) =>

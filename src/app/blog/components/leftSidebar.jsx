@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { GalleryUnit, IntroductionUnit, PostListUnit } from "./postListUnit";
+import { PageListUnit, PostListUnit } from "./postListUnit";
 import { PostDataContext } from "../utils/postDataContext";
 
 const LeftSidebar = () => {
@@ -16,9 +16,9 @@ const LeftSidebar = () => {
           <small className="font-bold uppercase select-none">Welcome!</small>
           <div className="flex flex-col mt-sm">
             {/* INTRODUCTION */}
-            <IntroductionUnit />
+            <PageListUnit pageName="introduction" />
             {/* GALLERY */}
-            <GalleryUnit />
+            <PageListUnit pageName="gallery" />
           </div>
         </div>
 

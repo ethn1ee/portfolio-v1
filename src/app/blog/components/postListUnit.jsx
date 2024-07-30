@@ -2,9 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { useStickyRefs } from "@/utils/useStickyRefs";
 import Link from "next/link";
+import StickyWrapper from "@/components/stickyWrapper";
 
 const navHoverStyle = {
   paddingLeft: 10,
@@ -21,81 +20,47 @@ const navActiveStyle = {
 };
 
 export const PostListUnit = ({ slug, collection, title }) => {
-  const ref = useRef();
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
   const pathname = usePathname();
   const currentPostPath = pathname.replace("/blog/post/", "");
 
-  useEffect(() => {
-    addStickyElement(ref);
-    return () => removeStickyElement(ref);
-  }, [slug]);
-
   return (
     <Link href={`/blog/post/${collection}/${slug}`}>
-      <motion.div
-        ref={ref}
-        whileHover={navHoverStyle}
-        animate={`${collection}/${slug}` === currentPostPath ? navActiveStyle : {}}
-        transition={{ duration: 0.2 }}
-        className="flex py-m cursor-pointer text-neutral-400"
-      >
-        <p className="text-inherit">{title}</p>
-      </motion.div>
+      <StickyWrapper>
+        <motion.div
+          whileHover={navHoverStyle}
+          animate={
+            `${collection}/${slug}` === currentPostPath ? navActiveStyle : {}
+          }
+          transition={{ duration: 0.2 }}
+          className="flex py-m cursor-pointer text-neutral-400"
+        >
+          <p className="text-inherit">{title}</p>
+        </motion.div>
+      </StickyWrapper>
     </Link>
   );
 };
 
-export const IntroductionUnit = () => {
+export const PageListUnit = ({ pageName }) => {
   const pathName = usePathname();
-  const introRef = useRef();
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
+  const pagePath = "/blog/" + (pageName === "introduction" ? "" : pageName);
 
-  useEffect(() => {
-    addStickyElement(introRef);
-    return () => {
-      removeStickyElement(introRef);
-    };
-  }, []);
+  const capitalizeString = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   return (
-    <Link href="/blog">
-      <motion.div
-        ref={introRef}
-        whileHover={navHoverStyle}
-        animate={pathName === "/blog" ? navActiveStyle : {}}
-        transition={{ duration: 0.2 }}
-        className="flex py-m cursor-pointer text-neutral-400"
-      >
-        <p className="text-inherit">Introduction</p>
-      </motion.div>
-    </Link>
-  );
-};
-
-export const GalleryUnit = () => {
-  const pathName = usePathname();
-  const galleryRef = useRef();
-  const { addStickyElement, removeStickyElement } = useStickyRefs();
-
-  useEffect(() => {
-    addStickyElement(galleryRef);
-    return () => {
-      removeStickyElement(galleryRef);
-    };
-  }, []);
-
-  return (
-    <Link href="/blog/gallery">
-      <motion.div
-        ref={galleryRef}
-        whileHover={navHoverStyle}
-        animate={pathName === "/blog/gallery" ? navActiveStyle : {}}
-        transition={{ duration: 0.2 }}
-        className="flex py-m cursor-pointer text-neutral-400"
-      >
-        <p className="text-inherit">Gallery</p>
-      </motion.div>
+    <Link href={pagePath}>
+      <StickyWrapper>
+        <motion.div
+          whileHover={navHoverStyle}
+          animate={pathName === pagePath ? navActiveStyle : {}}
+          transition={{ duration: 0.2 }}
+          className="flex py-m cursor-pointer text-neutral-400"
+        >
+          <p className="text-inherit">{capitalizeString(pageName)}</p>
+        </motion.div>
+      </StickyWrapper>
     </Link>
   );
 };

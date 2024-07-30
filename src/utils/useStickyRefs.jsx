@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const StickyRefsContext = createContext();
 
@@ -9,7 +9,7 @@ export const StickyRefsProvider = ({ children }) => {
 
   const addStickyElement = (elementRef) => {
     setStickyElements((prevElements) => [...prevElements, elementRef]);
-  }; 
+  };
 
   const removeStickyElement = (elementRef) => {
     setStickyElements((prevElements) =>
@@ -29,7 +29,7 @@ export const StickyRefsProvider = ({ children }) => {
 export const useStickyRefs = () => {
   const context = useContext(StickyRefsContext);
   if (context === undefined) {
-    throw new Error('useStickyRefs must be used within a StickyRefsProvider');
+    throw new Error("useStickyRefs must be used within a StickyRefsProvider");
   }
   return context;
 };

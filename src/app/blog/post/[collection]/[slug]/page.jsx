@@ -1,3 +1,4 @@
+import { Outfit } from "next/font/google";
 import getFormattedDate from "@/app/blog/utils/getFormattedDate";
 import "./article.scss";
 import {
@@ -7,9 +8,14 @@ import {
 
 import React from "react";
 import Markdown from "markdown-to-jsx";
-import CodeBlock from "./components/codeBlock";
+import CustomPre from "./components/customPre";
+import CustomA from "./components/customA";
 
 const postData = getPostData();
+
+const outfit = Outfit({
+  subsets: ["latin"],
+});
 
 const Post = ({ params }) => {
   const collection = params.collection;
@@ -29,11 +35,12 @@ const Post = ({ params }) => {
         <div className="text-highlight mt-s">{post.metadata.subtitle}</div>
       </header>
 
-      <article className={`mt-l markdown-body pb-xl`}>
+      <article className={`${outfit.className} mt-l markdown-body pb-[20vh]`}>
         <Markdown
           options={{
             overrides: {
-              pre: CodeBlock,
+              pre: CustomPre,
+              a: CustomA,
             },
           }}
         >
@@ -43,7 +50,6 @@ const Post = ({ params }) => {
     </main>
   );
 };
-
 
 export const generateStaticParams = async () => {
   const params = postData

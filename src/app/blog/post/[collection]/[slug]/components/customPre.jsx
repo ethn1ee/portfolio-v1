@@ -2,7 +2,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import CodeHeader from "./codeHeader";
 
-const CodeBlock = ({ children }) => {
+const CustomPre = ({ children }) => {
   const language = children.props.className.replace("lang-", "");
   const code = children.props.children;
 
@@ -14,7 +14,7 @@ const CodeBlock = ({ children }) => {
         language={language}
         style={stackoverflowDark}
         showLineNumbers
-        lineNumberStyle={{ color: "#2b2829" }}
+        lineNumberStyle={{ color: "#433E3F" }}
       >
         {code}
       </SyntaxHighlighter>
@@ -22,4 +22,4 @@ const CodeBlock = ({ children }) => {
   );
 };
 
-export default CodeBlock;
+export default CustomPre;
