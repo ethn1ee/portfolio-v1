@@ -7,6 +7,7 @@ import CustomA from "./customA";
 import { motion, AnimatePresence } from "framer-motion";
 import anim, { customEase } from "@/utils/anim";
 import CustomP from "./customP";
+import CustomImg from "./customImg";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ const ArticleBody = ({ post }) => {
   return (
     <motion.article
       {...anim(opacityVariant)}
-      className={`${outfit.className} mt-l markdown-body pb-[20vh]`}
+      className={`${outfit.className} mt-l markdown-body pb-[20vh] relative`}
     >
       <Markdown
         options={{
@@ -30,6 +31,7 @@ const ArticleBody = ({ post }) => {
             pre: CustomPre,
             a: (props) => <CustomA {...props} />,
             p: CustomP,
+            img: CustomImg,
           },
         }}
       >
