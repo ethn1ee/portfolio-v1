@@ -142,6 +142,7 @@ const Cursor = () => {
             ...defaultCursorStyle,
             width: width,
             height: height,
+            zIndex: 100,
             borderRadius: elementStyle.borderRadius,
             ...cursorVariants[cursorType],
           });
@@ -152,9 +153,9 @@ const Cursor = () => {
               setCursorStyle((prev) => ({
                 ...prev,
                 backgroundColor: elementStyle.color,
-                width: width + 8,
+                width: width,
               }));
-              mouse.y.set(top + height + 4);
+              mouse.y.set(top + height);
               break;
 
             case "textpointer":

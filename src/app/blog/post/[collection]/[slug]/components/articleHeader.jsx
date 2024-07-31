@@ -1,6 +1,7 @@
 "use client";
 
 import getFormattedDate from "@/app/blog/utils/getFormattedDate";
+import StickyWrapper from "@/components/stickyWrapper";
 import { color, motion, useScroll, useTransform } from "framer-motion";
 
 const ArticleHeader = ({ post }) => {
@@ -14,7 +15,7 @@ const ArticleHeader = ({ post }) => {
   };
 
   const headerStyle = {
-    height: useTransform(scrollY, [0, 35, 50], [190, 150, 112]),
+    height: useTransform(scrollY, [0, 50], [190, 112]),
   };
   const dateStyle = {
     opacity: useTransform(scrollY, [0, 50], [1, 0]),
@@ -39,32 +40,34 @@ const ArticleHeader = ({ post }) => {
   };
 
   return (
-    <motion.header
-      style={headerStyle}
-      className="fixed top-0 pt-[80px] w-[50vw] h-[190px] z-30 bg-base-black overflow-hidden shadow-md shadow-base-black"
-    >
-      <motion.small
-        style={dateStyle}
-        className="absolute block font-bold text-neutral-400"
+    <StickyWrapper cursorType={"underline"}>
+      <motion.header
+        style={headerStyle}
+        className="fixed top-0 pt-[80px] w-[50vw] h-[190px] z-30 bg-base-black overflow-hidden shadow-md shadow-base-black"
       >
-        {formattedDate}
-      </motion.small>
-
-      <motion.div
-        style={headingsStyle}
-        className="relative border-b border-neutral-900"
-      >
-        <motion.div style={titleStyle} className="text-hero font-semibold">
-          {post.metadata.title}
-        </motion.div>
-        <motion.div
-          style={subtitleStyle}
-          className="text-highlight box-border text-neutral-400"
+        <motion.small
+          style={dateStyle}
+          className="absolute block font-bold text-neutral-400"
         >
-          {post.metadata.subtitle}
+          {formattedDate}
+        </motion.small>
+
+        <motion.div
+          style={headingsStyle}
+          className="relative border-b border-neutral-900"
+        >
+          <motion.div style={titleStyle} className="text-hero font-semibold">
+            {post.metadata.title}
+          </motion.div>
+          <motion.div
+            style={subtitleStyle}
+            className="text-highlight box-border text-neutral-400"
+          >
+            {post.metadata.subtitle}
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </motion.header>
+      </motion.header>
+    </StickyWrapper>
   );
 };
 

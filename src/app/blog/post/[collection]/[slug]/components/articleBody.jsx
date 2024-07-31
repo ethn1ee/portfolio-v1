@@ -7,12 +7,22 @@ import Markdown from "markdown-to-jsx";
 import CustomPre from "./customPre";
 import CustomA from "./customA";
 import CustomP from "./customP";
+import CustomH1 from "./customH1";
 
 const outfit = Outfit({
   subsets: ["latin"],
 });
 
 const ArticleBody = ({ post }) => {
+  const mdOptions = {
+    overrides: {
+      pre: CustomPre,
+      a: CustomA,
+      p: CustomP,
+      h1: CustomH1,
+    },
+  };
+
   const opacityVariant = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -24,17 +34,7 @@ const ArticleBody = ({ post }) => {
       {...anim(opacityVariant)}
       className={`${outfit.className} mt-[140px] markdown-body pb-[20vh]`}
     >
-      <Markdown
-        options={{
-          overrides: {
-            pre: CustomPre,
-            a: CustomA,
-            p: CustomP,
-          },
-        }}
-      >
-        {post.content}
-      </Markdown>
+      <Markdown options={mdOptions}>{post.content}</Markdown>
     </motion.article>
   );
 };

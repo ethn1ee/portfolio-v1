@@ -16,7 +16,7 @@ const CustomA = ({ children, href }) => {
       <StickyWrapper cursorType="underline">
         <motion.span
           whileHover={{ opacity: 0.8 }}
-          className="cursor-pointer inline-block w-fit h-[21px] !text-primary-400"
+          className="cursor-pointer inline-block w-fit h-[25px] !text-primary-400"
         >
           {text}
         </motion.span>
