@@ -39,11 +39,16 @@ const ArticleHeader = ({ post }) => {
     ...rotateConfig,
   };
 
+  const handleHeaderClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <StickyWrapper cursorType={"underline"}>
       <motion.header
+        onClick={handleHeaderClick}
         style={headerStyle}
-        className="fixed top-0 pt-[80px] w-[50vw] h-[190px] z-30 bg-base-black overflow-hidden shadow-md shadow-base-black"
+        className="fixed top-0 !cursor-pointer pt-[80px] w-[50vw] h-[190px] z-30 bg-base-black overflow-hidden shadow-md shadow-base-black"
       >
         <motion.small
           style={dateStyle}
