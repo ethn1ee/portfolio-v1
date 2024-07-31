@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { PageListUnit, PostListUnit } from "./postListUnit";
 import { PostDataContext } from "../utils/postDataContext";
+import { slugToTitleCase } from "../utils/convertCase";
 
 const LeftSidebar = () => {
   const postData = useContext(PostDataContext);
@@ -35,7 +36,7 @@ const CollectionListUnit = ({ collection }) => {
   return (
     <div className="h-fit w-full">
       <small className="font-bold uppercase select-none">
-        {collection.name}
+        {slugToTitleCase(collection.name)}
       </small>
       <div className="flex flex-col mt-sm">
         {collection.posts.map((post, index) => (

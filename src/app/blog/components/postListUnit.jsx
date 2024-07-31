@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import StickyWrapper from "@/components/stickyWrapper";
+import { stringToTitleCase } from "../utils/convertCase";
 
 const navHoverStyle = {
   paddingLeft: 10,
@@ -45,10 +46,6 @@ export const PageListUnit = ({ pageName }) => {
   const pathName = usePathname();
   const pagePath = "/blog/" + (pageName === "introduction" ? "" : pageName);
 
-  const capitalizeString = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
   return (
     <Link href={pagePath}>
       <StickyWrapper>
@@ -58,7 +55,7 @@ export const PageListUnit = ({ pageName }) => {
           transition={{ duration: 0.2 }}
           className="flex py-m cursor-pointer text-neutral-400"
         >
-          <p className="text-inherit">{capitalizeString(pageName)}</p>
+          <p className="text-inherit">{stringToTitleCase(pageName)}</p>
         </motion.div>
       </StickyWrapper>
     </Link>

@@ -1,13 +1,12 @@
 "use client";
 
 import { Outfit } from "next/font/google";
+import { motion } from "framer-motion";
+import anim, { customEase } from "@/utils/anim";
 import Markdown from "markdown-to-jsx";
 import CustomPre from "./customPre";
 import CustomA from "./customA";
-import { motion, AnimatePresence } from "framer-motion";
-import anim, { customEase } from "@/utils/anim";
 import CustomP from "./customP";
-import CustomImg from "./customImg";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -23,15 +22,14 @@ const ArticleBody = ({ post }) => {
   return (
     <motion.article
       {...anim(opacityVariant)}
-      className={`${outfit.className} mt-l markdown-body pb-[20vh] relative`}
+      className={`${outfit.className} mt-[140px] markdown-body pb-[20vh]`}
     >
       <Markdown
         options={{
           overrides: {
             pre: CustomPre,
-            a: (props) => <CustomA {...props} />,
+            a: CustomA,
             p: CustomP,
-            img: CustomImg,
           },
         }}
       >

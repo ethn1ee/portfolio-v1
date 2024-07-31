@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
+import { slugToTitleCase } from "./convertCase";
 
 const postsDirectory = path.join(process.cwd(), "src/data/posts");
 
@@ -54,8 +53,7 @@ export const getPostByCollectionAndSlug = (collection, slug) => {
   const stat = fs.statSync(fullPath);
   const creationDate = stat.birthtime;
   const { data, content } = matter(fileContents);
-  // const processedContent = remark().use(html).processSync(content).toString();
-
+  
   return {
     metadata: {
       collection,

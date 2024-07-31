@@ -5,7 +5,7 @@
   }
 
   h1 {
-    @apply text-xl text-base-white font-medium border-b border-b-neutral-900 pb-xs my-m;
+    @apply text-xl text-base-white font-medium border-b border-b-neutral-900 pb-xs mb-m mt-l;
   }
 
   p {
@@ -33,12 +33,7 @@
     list-style-type: decimal;
   }
 
-  a {
-    @apply text-primary-400;
-    text-decoration: none;
-    transition: all 0.3s ease-out;
-    &:hover {
-      opacity: 0.8;
-    }
+  img {
+    @apply relative z-10 rounded-md border border-neutral-1000 w-full my-ml;
   }
 }

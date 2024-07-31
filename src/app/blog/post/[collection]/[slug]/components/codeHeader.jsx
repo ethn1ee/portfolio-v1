@@ -21,7 +21,7 @@ const CodeHeader = ({ language, code }) => {
     <div className="w-full flex justify-between items-center px-m py-xs bg-neutral-1000 border-b border-neutral-900">
       {/* LANGUAGE */}
       <small className="text-xs !text-neutral-400 select-none">
-        {language.toUpperCase()}
+        {language}
       </small>
 
       {/* COPY BUTTON */}
