@@ -6,6 +6,7 @@ import { animate, motion, stagger } from "framer-motion";
 import { PostDataContext } from "./utils/postDataContext";
 import StickyWrapper from "@/components/stickyWrapper";
 import { customEase } from "@/utils/anim";
+import Link from "next/link";
 
 const Blog = () => {
   const postData = useContext(PostDataContext);
@@ -20,6 +21,8 @@ const Blog = () => {
     );
   }, []);
 
+  const recentPostsRef = useRef();
+
   return (
     <main className="w-[64vw]">
       <header className="stagger-section">
@@ -33,28 +36,29 @@ const Blog = () => {
       <section className="stagger-section mt-[10vh]">
         <div className="flex items-center justify-between">
           <div className="text-feature">Recent Posts</div>
-          <StickyWrapper cursorType={"underline"}>
-            <motion.p
-              whileTap={{ scale: 0.8 }}
-              className="font-bold text-neutral-400 cursor-pointer"
-            >
-              See all
-            </motion.p>
-          </StickyWrapper>
+          <Link href="/blog/gallery">
+            <StickyWrapper cursorType={"underline"}>
+              <motion.p
+                whileHover={{ opacity: 0.8 }}
+                whileTap={{ scale: 0.8 }}
+                className="font-bold text-neutral-400 h-6 cursor-pointer"
+              >
+                See all
+              </motion.p>
+            </StickyWrapper>
+          </Link>
         </div>
-        <div id="recent-posts" className="grid grid-cols-3 mt-l gap-sm">
+        <div ref={recentPostsRef} className="grid grid-cols-3 mt-l gap-sm">
           {postData.map((collection) =>
             collection.posts.map((post) => (
-              <PostCard key={post.metadata.slug} post={post} />
+              <PostCard key={post.metadata.slug} post={post} parentRef={recentPostsRef} />
             ))
           )}
         </div>
       </section>
 
       {/* BLOG OVERVIEW */}
-      <section className="stagger-section">
-
-      </section>
+      <section className="stagger-section"></section>
     </main>
   );
 };

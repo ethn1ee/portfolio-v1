@@ -7,10 +7,10 @@ const CustomPre = ({ children }) => {
   const code = children.props.children;
 
   return (
-    <div className="relative z-10 backdrop-blur-xl border border-neutral-900 rounded-md overflow-x-auto my-m">
+    <div className="relative z-10 backdrop-blur-xl border border-neutral-900 rounded-md my-m">
       <CodeHeader language={language} code={code} />
       <SyntaxHighlighter
-        className="!px-m !py-m !bg-transparent"
+        className="!px-m !py-m !bg-transparent overflow-x-auto"
         language={language}
         style={stackoverflowDark}
         showLineNumbers

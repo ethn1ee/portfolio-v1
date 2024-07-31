@@ -6,6 +6,7 @@ import anim, { customEase } from "@/utils/anim";
 import Image from "next/image";
 import { projects } from "@/data/projects";
 import StickyWrapper from "@/components/stickyWrapper";
+import Tag from "@/components/tag";
 
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -214,19 +215,6 @@ const ProjectCard = ({
         )}
       </AnimatePresence>
     </div>
-  );
-};
-
-const Tag = ({ item }) => {
-  return (
-    <StickyWrapper>
-      <motion.div
-        whileHover={{ backgroundColor: "#0A0A0B", borderColor: "#0A0A0B00" }}
-        className="flex items-center justify-center py-s px-sm shrink-0 select-none relative z-20 bg-base-black border border-neutral-900 rounded-md"
-      >
-        <p className="font-medium">{item}</p>
-      </motion.div>
-    </StickyWrapper>
   );
 };
 

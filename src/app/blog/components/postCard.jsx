@@ -7,10 +7,10 @@ import { customEase } from "@/utils/anim";
 import Link from "next/link";
 import getFormattedDate from "../utils/getFormattedDate";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, parentRef }) => {
   const [parentWidth, setParentWidth] = useState(0);
   const updateParentWidth = () => {
-    const parentElement = document.getElementById("recent-posts");
+    const parentElement = parentRef.current;
     if (parentElement) {
       setParentWidth(parentElement.offsetWidth);
       setThumbnailWidth((parentWidth - 20) / 3 - 12);
@@ -48,12 +48,10 @@ const PostCard = ({ post }) => {
           }}
           className="bg-neutral-900 rounded-md overflow-hidden relative"
         >
-          <Image
-            src={post.metadata.thumbnail}
-            alt=""
-            fill
-          />
+          <Image src={post.metadata.thumbnail} alt="" fill />
         </div>
+
+        {/* METADATA */}
         <small className="block font-bold mt-m text-neutral-400">
           {formattedDate}
         </small>

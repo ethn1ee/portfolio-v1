@@ -44,7 +44,8 @@ export const PostListUnit = ({ slug, collection, title }) => {
 
 export const PageListUnit = ({ pageName }) => {
   const pathName = usePathname();
-  const pagePath = "/blog/" + (pageName === "introduction" ? "" : pageName);
+  const pagePath =
+    "/blog" + (pageName === "introduction" ? "" : "/" + pageName);
 
   return (
     <Link href={pagePath}>
