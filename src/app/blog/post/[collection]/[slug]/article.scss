@@ -2,6 +2,8 @@
   * {
     @apply text-neutral-100;
     line-height: 1.75;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
   }
 
   h1 {

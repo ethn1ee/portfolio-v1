@@ -8,6 +8,12 @@ import React from "react";
 
 import ArticleHeader from "./components/articleHeader";
 import ArticleBody from "./components/articleBody";
+import { Fira_Sans } from "next/font/google";
+
+const firaSans = Fira_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 const postData = getPostData();
 
@@ -17,7 +23,7 @@ const Post = ({ params }) => {
   const post = getPostByCollectionAndSlug(collection, slug);
 
   return (
-    <main className="w-[50vw]">
+    <main className={`${firaSans.className} w-[50vw]`}>
       <ArticleHeader post={post} />
       <ArticleBody post={post} />
     </main>
