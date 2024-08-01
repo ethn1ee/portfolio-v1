@@ -6,12 +6,8 @@
     font-optical-sizing: auto;
   }
 
-  h1 {
-    @apply text-xl text-base-white font-medium border-b border-b-neutral-900 pb-xs mb-m mt-l;
-  }
-
   p {
-    @apply my-m;
+    @apply my-ml;
   }
 
   code {
@@ -36,6 +32,14 @@
   }
 
   img {
-    @apply relative z-10 rounded-md border border-neutral-1000 w-full my-ml;
+    @apply relative z-10 border border-neutral-1000 w-full my-ml;
+  }
+
+  blockquote {
+    @apply border-l-4 font-semibold border-neutral-900 my-ml py-0.5 px-l bg-neutral-1000;
+
+    * {
+      @apply text-neutral-200;
+    }
   }
 }

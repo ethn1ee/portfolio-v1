@@ -14,7 +14,7 @@ export const StickyWrapper = ({ children, cursorType, hideCursor = false }) => {
 
   return cloneElement(children, {
     ref,
-    className: `cursor-${cursorType} ${hideCursor && "cursor-none"} ${
+    className: `cursor-${cursorType} ${hideCursor ? "cursor-none" : ""} ${
       children.props?.className || ""
     }`,
   });

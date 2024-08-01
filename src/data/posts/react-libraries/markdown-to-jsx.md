@@ -2,14 +2,12 @@
 title: "Markdown to JSX"
 subtitle: "Converting a markdown file into a customizable react component"
 thumbnail: "/blog-thumbnails/markdown-to-jsx.png"
-tags: ["React", "Next.js"]
+tags: ["React", "Next.js", "Mardown"]
 ---
 
-This blog utilizes Next.js static site generation without a database. All blog post data is stored within the project repository as markdown files. However, converting markdown into plain HTML poses a challenge when it comes to adding custom React components to the converted HTML. For example, adding an animated copy button for code snippets inside a `<pre>` element.
-
-To address this issue, the library `markdown-to-jsx` comes to the rescue. `markdown-to-jsx` is a powerful library that simplifies the process of converting markdown files into JSX format. It allows for easy customization by adding custom components to the markdown content.
-
 # 1. Set up markdown-to-jsx
+
+Converting markdown into HTML can be challenging when adding custom React components. However, the `markdown-to-jsx` library simplifies this process by converting markdown files into JSX format and allowing easy customization with custom components.
 
 Install [markdown-to-jsx](https://www.npmjs.com/package/markdown-to-jsx) from npm.
 

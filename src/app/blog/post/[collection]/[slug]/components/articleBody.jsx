@@ -8,6 +8,7 @@ import CustomPre from "./customPre";
 import CustomA from "./customA";
 import CustomP from "./customP";
 import CustomH1 from "./customH1";
+import { useEffect, useState } from "react";
 
 const ArticleBody = ({ post }) => {
   const mdOptions = {
@@ -17,6 +18,8 @@ const ArticleBody = ({ post }) => {
       p: CustomP,
       h1: CustomH1,
     },
+    forceBlock: false,
+    wrapper: "article",
   };
 
   const opacityVariant = {
@@ -25,13 +28,22 @@ const ArticleBody = ({ post }) => {
     transition: { duration: 1, ease: customEase },
   };
 
+  const [thumbnailHeight, setThumbnailHeight] = useState(0);
+
+  useEffect(() => {
+    setThumbnailHeight(((window.innerWidth * 0.5 + 40) * 9) / 16);
+  }, []);
+
   return (
-    <motion.article
-      {...anim(opacityVariant)}
-      className="mt-[32vw] markdown-body pb-[20vh]"
-    >
-      <Markdown options={mdOptions}>{post.content}</Markdown>
-    </motion.article>
+    <motion.div {...anim(opacityVariant)}>
+      <Markdown
+        style={{ marginTop: thumbnailHeight + 10 }}
+        className="markdown-body pb-[20vh]"
+        options={mdOptions}
+      >
+        {post.content}
+      </Markdown>
+    </motion.div>
   );
 };
 

@@ -40,7 +40,7 @@ const ArticleHeader = ({ post }) => {
   };
   const dateStyle = {
     opacity: useTransform(scrollY, scrollRange, [1, -4]),
-    y: useTransform(scrollY, scrollRange, [0, -20]),
+    y: useTransform(scrollY, scrollRange, [0, -40]),
     rotateX: useTransform(scrollY, scrollRange, [0, 40]),
     ...rotateConfig,
   };
@@ -54,7 +54,7 @@ const ArticleHeader = ({ post }) => {
     opacity: useTransform(scrollY, scrollRange, [1, -4]),
     height: useTransform(scrollY, scrollRange, [20, 0]),
     y: useTransform(scrollY, scrollRange, [0, -10]),
-    marginTop: useTransform(scrollY, scrollRange, [10, 0]),
+    marginTop: useTransform(scrollY, scrollRange, [4, 0]),
     rotateX: useTransform(scrollY, scrollRange, [0, -90]),
     ...rotateConfig,
   };
@@ -65,7 +65,7 @@ const ArticleHeader = ({ post }) => {
 
   return (
     <StickyWrapper cursorType={"underline"}>
-      <header className="fixed top-0 z-30 bg-base-black -translate-x-5">
+      <header id="article-header" className="fixed top-0 z-30 bg-base-black -translate-x-5">
         {/* TOP SPACER */}
         <div className="h-[80px] w-full"></div>
 
@@ -76,6 +76,7 @@ const ArticleHeader = ({ post }) => {
         >
           {/* THUMBNAIL */}
           <motion.img
+            id="header-thumbnail"
             style={thumbnailStyle}
             className="object-cover"
             src={post.metadata.thumbnail}
