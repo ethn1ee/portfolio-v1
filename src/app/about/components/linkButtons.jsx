@@ -52,7 +52,7 @@ const LinkButton = ({ link }) => {
         onMouseLeave={() => setIsHovered(false)}
         ref={navRef}
         whileTap={{ scale: 0.8 }}
-        className="cursor-underline flex flex-col gap-xxs h-6 overflow-hidden stagger-button"
+        className="cursor-underline flex flex-col gap-xs md:gap-xxs h-5 md:h-6 overflow-hidden stagger-button"
       >
         <div className="flex">
           {link.title.split("").map((letter, index) => (
@@ -118,7 +118,7 @@ const EmailButton = () => {
       onClick={handleCopy}
       ref={navRef}
       whileTap={{ scale: 0.8 }}
-      className="cursor-underline cursor-pointer flex flex-col w-fit gap-xxs h-6 overflow-y-clip stagger-button"
+      className="cursor-underline cursor-pointer flex flex-col w-fit gap-xs md:gap-xxs h-5 md:h-6 overflow-y-clip stagger-button"
     >
       <div className="flex w-fit">
         {"EMAIL".split("").map((letter, index) => (

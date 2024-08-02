@@ -23,9 +23,9 @@ export default function RootLayout({ children }) {
           <StickyRefsProvider>
             <NavBar />
             <Cursor />
-            <div className="w-full relative mt-[60px] bg-base-black overflow-y-auto overflow-x-hidden">
+            <main className="w-full relative mt-[60px] bg-base-black overflow-y-auto overflow-x-hidden">
               {children}
-            </div>
+            </main>
           </StickyRefsProvider>
         </SmoothScroll>
       </body>

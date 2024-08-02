@@ -1,91 +1,99 @@
 "use client";
 
-import { Great_Vibes, Playfair_Display_SC } from "next/font/google";
 import {
+  animate,
   motion,
+  stagger,
   useMotionValue,
   useMotionValueEvent,
   useScroll,
   useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { customEase } from "@/utils/anim";
-
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-const playfairDisplaySC = Playfair_Display_SC({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+import anim, { customEase } from "@/utils/anim";
+import StickyWrapper from "@/components/stickyWrapper";
 
 const Hero = () => {
   const { scrollYProgress } = useScroll();
 
   const [heroOpacity, setHeroOpacity] = useState(1);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setHeroOpacity(Math.max(0, 1 - latest * 3));
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    setHeroOpacity(Math.max(0, 1 - current * 2));
   });
 
-  const rotateDegree1 = useMotionValue(-90);
-  const rotateDegree2 = useMotionValue(-90);
-  const springOption = { stiffness: 80, damping: 8, mass: 2 };
-  const springRotate1 = useSpring(rotateDegree1, springOption);
-  const springRotate2 = useSpring(rotateDegree2, springOption);
+  const staggerText = stagger(0.03, { startDelay: 1 });
 
   useEffect(() => {
-    setTimeout(() => rotateDegree1.set(0), 700);
-    setTimeout(() => rotateDegree2.set(0), 1000);
+    animate(
+      ".stagger-letter",
+      { rotateX: [90, 0], opacity: [0, 1], z: [-50, 0], y: [-20, 0] },
+      { delay: staggerText, ease: customEase, duration: 0.5 }
+    );
   }, []);
 
   return (
     <div
-      style={{
-        opacity: heroOpacity,
-      }}
-      className="w-full h-[calc(100vh-60px)] flex items-center justify-center select-none relative"
+      id="home-hero"
+      className="fixed select-none"
+      style={{ opacity: heroOpacity }}
     >
-      <div className="fixed flex flex-col items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, fontWeight: 100 }}
+        animate={{ opacity: 1, fontWeight: 800 }}
+        transition={{ duration: 1, ease: customEase }}
+        className="text-[64px] md:text-[12vw] leading-[64px] md:leading-[12vw] tracking-tight -translate-x-[0.6vw]"
+      >
+        Ethan Lee
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: customEase, delay: 1 }}
+        className="flex text-[24px] md:text-[3vw] tracking-tighter font-extralight"
+      >
+        <StickyWrapper cursorType={"underline"}>
+          <div>
+            <LetterSplit text={"Developer"} />
+          </div>
+        </StickyWrapper>
+        <LetterSplit text={" / "} />
+        <StickyWrapper cursorType={"underline"}>
+          <div>
+            <LetterSplit text={"Designer"} />
+          </div>
+        </StickyWrapper>
+      </motion.div>
+
+      {/* <StickyWrapper cursorType={"underline"}>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: customEase }}
-          className={
-            greatVibes.className + " text-[64px] md:text-[10vw] xl:text-[164px]"
-          }
+          style={{
+            rotateX: springRotate2,
+            transformOrigin: "top",
+            transformPerspective: 500,
+          }}
+          className="inline"
         >
-          Ethan Lee
+          Portfolio 2024 ed.
         </motion.div>
+      </StickyWrapper> */}
+    </div>
+  );
+};
+
+const LetterSplit = ({ text }) => {
+  return (
+    <div className="flex w-fit">
+      {text.split("").map((letter, index) => (
         <div
-          className={
-            playfairDisplaySC.className +
-            " text-[24px] -mt-2 md:text-[4vw] xl:text-[64px] md:-mt-[1vw] xl:-mt-3 flex flex-col items-center justify-center tracking-tighter"
-          }
+          key={index}
+          style={{ transformPerspective: 500 }}
+          className="stagger-letter"
         >
-          <motion.div
-            style={{
-              rotateX: springRotate1,
-              transformOrigin: "top",
-              transformPerspective: 500,
-            }}
-          >
-            Developer & Designer
-          </motion.div>
-          <motion.div
-            style={{
-              rotateX: springRotate2,
-              transformOrigin: "top",
-              transformPerspective: 500,
-            }}
-            className="-mt-1 md:-mt-[0.5vw] xl:-mt-2"
-          >
-            Portfolio 2024
-          </motion.div>
+          {letter === " " ? "\u00A0" : letter}
         </div>
-      </div>
+      ))}
     </div>
   );
 };

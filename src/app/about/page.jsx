@@ -7,7 +7,7 @@ import LinkButtons from "./components/linkButtons";
 
 const About = () => {
   return (
-    <main>
+    <>
       {/* HERO TEXT */}
       <HeroText />
 
@@ -16,7 +16,7 @@ const About = () => {
 
       {/* EXPERIENCES */}
       <Experiences />
-    </main>
+    </>
   );
 };
 

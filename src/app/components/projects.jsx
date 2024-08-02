@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useInView,
+  stagger,
+  animate,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import anim, { customEase } from "@/utils/anim";
 import Image from "next/image";
@@ -8,22 +14,60 @@ import { projects } from "@/data/projects";
 import StickyWrapper from "@/components/stickyWrapper";
 import Tag from "@/components/tag";
 
+const PROJECT_HEADER_HEIGHT = 40;
+
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
-
+  const [topMargin, setTopMargin] = useState(10000);
   const projectsRef = useRef();
 
-  const isProjectsInView = useInView(projectsRef, {
-    once: true,
-  });
+  const staggerProject = stagger(0.3);
+
+  const updateTopMargin = () => {
+    setTopMargin(
+      window.innerHeight -
+        PROJECT_HEADER_HEIGHT * (projects.length + 1) -
+        60 -
+        20
+    );
+  };
+
+  useEffect(() => {
+    updateTopMargin();
+    animate(
+      ".stagger-project",
+      { opacity: [0, 1] },
+      { delay: staggerProject, ease: customEase, duration: 0.5 }
+    );
+    animate(
+      ".stagger-line",
+      { width: ["0%", "100%"] },
+      { delay: staggerProject, ease: customEase, duration: 0.5 }
+    );
+    window.addEventListener("resize", () => updateTopMargin());
+
+    return () => window.removeEventListener("resize", () => updateTopMargin());
+  }, []);
+  useEffect(() => {
+    if (activeIndex === -1) return;
+    projectsRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [activeIndex]);
 
   return (
     <div
       ref={projectsRef}
-      className="w-full mt-ml min-h-[calc(100vh-60px)] h-fit"
+      id="home-projects"
+      style={{ marginTop: topMargin }}
+      className="w-full h-[calc(100vh-60px)]"
     >
       {/* LIST HEADER */}
-      <div className="w-full flex justify-between items-center py-sm sticky top-[60px] bg-base-black z-10 pointer-events-none">
+      <div
+        style={{ height: PROJECT_HEADER_HEIGHT }}
+        className="w-full flex justify-between items-center pointer-events-none"
+      >
         <div className="flex flex-1 justify-start items-center">
           <small className="text-neutral-400">PROJECT</small>
         </div>
@@ -37,12 +81,12 @@ const Projects = () => {
           <small className="text-neutral-400">YEAR</small>
         </div>
       </div>
+
       {/* LIST */}
       {projects.map((project, index) => (
         <ProjectCard
           key={index}
           project={project}
-          isProjectsInView={isProjectsInView}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
           index={index}
@@ -52,25 +96,11 @@ const Projects = () => {
   );
 };
 
-const ProjectCard = ({
-  project,
-  activeIndex,
-  setActiveIndex,
-  isProjectsInView,
-  index,
-}) => {
+const ProjectCard = ({ project, activeIndex, setActiveIndex, index }) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  const expand = activeIndex === index;
-
-  const carouselRef = useRef();
-
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
-
-  const hoverTextVariant = {
-    initial: { padding: "0 0px" },
-    animate: isHovered ? { padding: "0 10px" } : { padding: "0 0px" },
-  };
+  const expand = activeIndex === index;
+  const carouselRef = useRef();
 
   const expandContentVariant = {
     initial: {
@@ -101,65 +131,55 @@ const ProjectCard = ({
     },
   };
 
-  const topBorderVariant = {
-    initial: { width: "0%", opacity: 1 },
-    animate: isProjectsInView
-      ? {
-          width: "100%",
-          opacity: isHovered ? 0 : 1,
-        }
-      : {},
-    transition: {
-      width: {
-        duration: 1.4,
-        delay: Math.sqrt(index) * 0.2,
-        ease: customEase,
-      },
-    },
-  };
-
   return (
-    <div id="projects" className="flex flex-col overflow-hidden">
+    <motion.div className="stagger-project flex flex-col overflow-hidden">
       {/* HEADER */}
       <StickyWrapper>
         <motion.div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setActiveIndex(expand ? -1 : index)}
-          className="w-full py-m relative flex items-center cursor-pointer select-none"
+          style={{ height: PROJECT_HEADER_HEIGHT }}
+          className="w-full relative flex items-center cursor-pointer"
         >
           {/* TOP BORDER */}
           <motion.div
-            {...anim(topBorderVariant)}
-            transition={topBorderVariant.transition}
-            className="w-full h-[1px] opacity-100 absolute top-0 left-0 bg-base-white"
+            animate={{ opacity: isHovered ? 0 : 1 }}
+            className="stagger-line w-full h-[1px] opacity-100 absolute top-0 left-0 bg-neutral-400"
           ></motion.div>
 
           {/* INFO */}
           <div className="w-full flex justify-between items-center relative">
-            <div className="flex flex-1 justify-start">
-              <motion.p {...anim(hoverTextVariant)} className="">
-                {project.name}
-              </motion.p>
-            </div>
-            <div className="flex flex-1 justify-start">
-              <p className="">
-                {project.category.map((category, index) => (
-                  <span className="text-inherit" key={index}>
-                    {category}
-                    {index < project.category.length - 1 ? ", " : ""}
-                  </span>
-                ))}
-              </p>
-            </div>
-            <div className="flex flex-1 justify-end">
-              <p className="">{project.client}</p>
-            </div>
-            <div className="flex flex-1 justify-end">
-              <motion.p {...anim(hoverTextVariant)} className="">
-                {project.year}
-              </motion.p>
-            </div>
+            <motion.p
+              animate={{
+                x: isHovered ? 10 : 0,
+              }}
+              transition={{ ease: customEase }}
+              className="flex-1 font-semibold"
+            >
+              {project.name}
+            </motion.p>
+
+            <p className="flex-1">
+              {project.category.map((category, index) => (
+                <span className="text-inherit" key={index}>
+                  {category}
+                  {index < project.category.length - 1 ? ", " : ""}
+                </span>
+              ))}
+            </p>
+
+            <p className="flex-1 text-right">{project.client}</p>
+
+            <motion.p
+              animate={{
+                x: isHovered ? -10 : 0,
+              }}
+              transition={{ ease: customEase }}
+              className="flex-1 text-right"
+            >
+              {project.year}
+            </motion.p>
           </div>
         </motion.div>
       </StickyWrapper>
@@ -214,7 +234,7 @@ const ProjectCard = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
 

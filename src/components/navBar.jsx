@@ -18,7 +18,8 @@ const NavBar = () => {
       initial={{ y: -60 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: customEase }}
-      className="w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] z-40"
+      id="navbar"
+      className="w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"
     >
       {/* LOGO */}
       <StickyWrapper cursorType={"hover"}>
@@ -56,7 +57,7 @@ const NavLink = ({ link }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           whileTap={{ scale: 0.8 }}
-          className="flex flex-col gap-xxs h-5 overflow-hidden"
+          className="flex flex-col gap-xs md:gap-xxs h-4 md:h-5 overflow-hidden"
         >
           <div className="flex">
             {link.title.split("").map((letter, index) => (
