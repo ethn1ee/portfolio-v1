@@ -1,13 +1,13 @@
-import { Lato } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.scss";
 import { StickyRefsProvider } from "@/utils/useStickyRefs";
 import SmoothScroll from "@/utils/smoothScroll";
 import NavBar from "@/components/navBar";
 import Cursor from "@/components/cursor";
 
-const lato = Lato({
+const raleway = Raleway({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
+  // weight: ["100", "300", "400", "700", "900"],
 });
 
 export const metadata = {
@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={lato.className}>
+      <body className={raleway.className}>
         <SmoothScroll>
           <StickyRefsProvider>
             <NavBar />

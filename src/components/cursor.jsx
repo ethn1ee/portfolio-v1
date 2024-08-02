@@ -13,11 +13,10 @@ const Cursor = () => {
   const { stickyElements } = useStickyRefs();
 
   const useSmoothMouse = true;
+  const STICKY_DISTANCE = [0, 0];
 
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-
   const [isHidden, setIsHidden] = useState(false);
-
   const [elementStyle, setElementStyle] = useState({
     borderRadius: 0,
     backgroundColor: "#FAFAFA",
@@ -51,7 +50,7 @@ const Cursor = () => {
   };
 
   const [cursorStyle, setCursorStyle] = useState(defaultCursorStyle);
-  const stickyDistance = [20, 20];
+
   const cursorVariants = {
     underline: {
       height: 1,
@@ -105,10 +104,10 @@ const Cursor = () => {
           elementRef.current.getBoundingClientRect();
 
         if (
-          clientX >= left - stickyDistance[0] &&
-          clientX <= left + width + stickyDistance[0] &&
-          clientY >= top - stickyDistance[1] &&
-          clientY <= top + height + stickyDistance[1]
+          clientX >= left - STICKY_DISTANCE[0] &&
+          clientX <= left + width + STICKY_DISTANCE[0] &&
+          clientY >= top - STICKY_DISTANCE[1] &&
+          clientY <= top + height + STICKY_DISTANCE[1]
         ) {
           if (
             !hoveredElement ||

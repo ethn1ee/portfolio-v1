@@ -45,7 +45,7 @@ const RightSidebar = () => {
             <small className="font-bold">TAGS</small>
             <div className="mt-sm flex flex-wrap gap-sm">
               {currentPost?.metadata.tags.map((tag) => (
-                <Tag key={tag} tag={tag} />
+                <Tag key={tag} item={tag} />
               ))}
             </div>
           </div>
@@ -55,14 +55,14 @@ const RightSidebar = () => {
   );
 };
 
-const Tag = ({ tag }) => {
+const Tag = ({ item }) => {
   return (
     <StickyWrapper>
       <motion.small
         whileHover={{ color: "#fafafa", borderColor: "#2b282900" }}
         className="flex items-center justify-center py-s px-sm text-neutral-200 shrink-0 cursor-pointer w-fit bg-base-black relative z-20 backdrop-blur-xl border border-neutral-900 rounded-md"
       >
-        {tag}
+        {item}
       </motion.small>
     </StickyWrapper>
   );

@@ -16,7 +16,7 @@ const Tag = ({ item, highlight = false }) => {
           color: "#FAFAFA",
           borderColor: "#0A0A0B00",
         }}
-        className="flex items-center justify-center py-s px-sm shrink-0 border border-neutral-900 rounded-md"
+        className="flex select-none items-center justify-center py-s px-sm shrink-0 border border-neutral-900 rounded-md"
       >
         <p className="font-medium text-inherit">{item}</p>
       </motion.div>
