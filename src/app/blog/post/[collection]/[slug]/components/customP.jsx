@@ -7,7 +7,7 @@ const StickyWrapper = dynamic(() => import("@/components/stickyWrapper"), {
 const CustomP = ({ children }) => {
   return (
     <StickyWrapper cursorType="textpointer">
-      <p>{children}</p>
+      <p className="relative z-0">{children}</p>
     </StickyWrapper>
   );
 };

@@ -16,7 +16,6 @@ const Cursor = () => {
 
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  const [isHovered, setIsHovered] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
   const [elementStyle, setElementStyle] = useState({
@@ -52,7 +51,7 @@ const Cursor = () => {
   };
 
   const [cursorStyle, setCursorStyle] = useState(defaultCursorStyle);
-  const stickyDistance = [0, 0];
+  const stickyDistance = [20, 20];
   const cursorVariants = {
     underline: {
       height: 1,
@@ -96,9 +95,10 @@ const Cursor = () => {
     const { clientX, clientY } = e;
 
     setCursorStyle(defaultCursorStyle);
-    setIsHovered(false);
     setIsHidden(false);
 
+    // Find all hovered elements and select the one with the highest z-index
+    let hoveredElement = null;
     stickyElements.forEach((elementRef) => {
       if (elementRef.current) {
         const { left, top, width, height } =
@@ -110,80 +110,88 @@ const Cursor = () => {
           clientY >= top - stickyDistance[1] &&
           clientY <= top + height + stickyDistance[1]
         ) {
-          setElementStyle(window.getComputedStyle(elementRef.current));
-          setIsHovered(true);
-
-          let cursorType = "default";
-
-          if (elementRef.current.className.includes("cursor-underline")) {
-            cursorType = "underline";
-          } else if (elementRef.current.className.includes("cursor-hidden")) {
-            setIsHidden(true);
-            cursorType = "hidden";
-          } else if (
-            elementRef.current.className.includes("cursor-textpointer")
+          if (
+            !hoveredElement ||
+            window.getComputedStyle(elementRef.current).zIndex >
+              window.getComputedStyle(hoveredElement.current).zIndex
           ) {
-            cursorType = "textpointer";
-          } else if (
-            elementRef.current.className.includes("cursor-experience-card")
-          ) {
-            cursorType = "experienceCard";
-          } else if (elementRef.current.className.includes("cursor-hover")) {
-            cursorType = "hover";
-          }
-
-          // Center cursor to element
-          const center = { x: left + width / 2, y: top + height / 2 };
-          mouse.x.set(center.x);
-          mouse.y.set(center.y);
-
-          // Apply global cursor style
-          setCursorStyle({
-            ...defaultCursorStyle,
-            width: width,
-            height: height,
-            zIndex: 100,
-            borderRadius: elementStyle.borderRadius,
-            ...cursorVariants[cursorType],
-          });
-
-          // Apply calculated styles
-          switch (cursorType) {
-            case "underline":
-              setCursorStyle((prev) => ({
-                ...prev,
-                backgroundColor: elementStyle.color,
-                width: width,
-              }));
-              mouse.y.set(top + height);
-              break;
-
-            case "textpointer":
-              setCursorStyle((prev) => ({
-                ...prev,
-                height: elementStyle.fontSize,
-              }));
-              mouse.x.set(clientX);
-              mouse.y.set(clientY);
-              break;
-
-            case "experienceCard":
-              setCursorStyle((prev) => ({
-                ...prev,
-                opacity: elementStyle.opacity,
-              }));
-              mouse.x.set(left + width + 13);
-              mouse.y.set(top + 8.5);
-              break;
-
-            default:
-              break;
+            hoveredElement = elementRef;
           }
         }
       }
     });
 
-    if (!isHovered) {
+    // Apply styles to cursor
+    if (hoveredElement?.current) {
+      // console.log(hoveredElement.current);
+      setElementStyle(window.getComputedStyle(hoveredElement.current));
+
+      const className = hoveredElement.current.className;
+      const { left, top, width, height } =
+        hoveredElement.current.getBoundingClientRect();
+      let cursorType = "default";
+
+      if (className.includes("cursor-underline")) {
+        cursorType = "underline";
+      } else if (className.includes("cursor-hidden")) {
+        setIsHidden(true);
+        cursorType = "hidden";
+      } else if (className.includes("cursor-textpointer")) {
+        cursorType = "textpointer";
+      } else if (className.includes("cursor-experience-card")) {
+        cursorType = "experienceCard";
+      } else if (className.includes("cursor-hover")) {
+        cursorType = "hover";
+      }
+
+      // Center cursor to element
+      const center = { x: left + width / 2, y: top + height / 2 };
+      mouse.x.set(center.x);
+      mouse.y.set(center.y);
+
+      // Apply global cursor style
+      setCursorStyle({
+        ...defaultCursorStyle,
+        width: width,
+        height: height,
+        zIndex: 100,
+        borderRadius: elementStyle.borderRadius,
+        ...cursorVariants[cursorType],
+      });
+
+      // Apply calculated styles
+      switch (cursorType) {
+        case "underline":
+          setCursorStyle((prev) => ({
+            ...prev,
+            backgroundColor: elementStyle.color,
+            width: width,
+          }));
+          mouse.y.set(top + height);
+          break;
+
+        case "textpointer":
+          setCursorStyle((prev) => ({
+            ...prev,
+            height: elementStyle.fontSize,
+          }));
+          mouse.x.set(clientX);
+          mouse.y.set(clientY);
+          break;
+
+        case "experienceCard":
+          setCursorStyle((prev) => ({
+            ...prev,
+            opacity: elementStyle.opacity,
+          }));
+          mouse.x.set(left + width + 13);
+          mouse.y.set(top + 8.5);
+          break;
+
+        default:
+          break;
+      }
+    } else {
       setCursorStyle(defaultCursorStyle);
       mouse.x.set(clientX);
       mouse.y.set(clientY);
