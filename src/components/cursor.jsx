@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useStickyRefs } from "../utils/useStickyRefs";
 
@@ -23,8 +18,8 @@ const Cursor = () => {
   });
 
   const mouse = {
-    x: useMotionValue(0),
-    y: useMotionValue(0),
+    x: useMotionValue(100),
+    y: useMotionValue(100),
   };
 
   const smoothOptions = { damping: 8, stiffness: 100, mass: 0.1 };
@@ -59,7 +54,7 @@ const Cursor = () => {
       width: 2,
     },
     hover: {
-      backgroundColor: "#FAFAFA22",
+      backgroundColor: "#2B2829",
       borderRadius: "100px",
       padding: "10px",
     },
@@ -215,7 +210,7 @@ const Cursor = () => {
   }, []);
 
   return (
-    <AnimatePresence>
+    <>
       {!isTouchDevice && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
           <motion.div
@@ -227,7 +222,7 @@ const Cursor = () => {
           ></motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 

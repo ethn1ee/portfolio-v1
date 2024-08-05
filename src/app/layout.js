@@ -1,14 +1,11 @@
-import { Raleway } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.scss";
 import { StickyRefsProvider } from "@/utils/useStickyRefs";
 import SmoothScroll from "@/utils/smoothScroll";
 import NavBar from "@/components/navBar";
 import Cursor from "@/components/cursor";
 
-const raleway = Raleway({
-  subsets: ["latin"],
-  // weight: ["100", "300", "400", "700", "900"],
-});
+const nohemi = localFont({ src: "./components/Nohemi-VF.ttf" });
 
 export const metadata = {
   title: "ETHAN LEE",
@@ -18,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={raleway.className}>
+      <body className={nohemi.className}>
         <SmoothScroll>
           <StickyRefsProvider>
             <NavBar />

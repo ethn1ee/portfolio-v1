@@ -36,13 +36,13 @@ const Hero = () => {
     <div
       id="home-hero"
       className="fixed select-none"
-      style={{ opacity: heroOpacity }}
+      style={{ opacity: heroOpacity, display: heroOpacity === 0 ? "none" : "" }}
     >
       <motion.div
         initial={{ opacity: 0, fontWeight: 100 }}
         animate={{ opacity: 1, fontWeight: 800 }}
-        transition={{ duration: 1, ease: customEase }}
-        className="text-[64px] md:text-[12vw] leading-[64px] md:leading-[12vw] tracking-tight -translate-x-[0.6vw]"
+        transition={{ duration: 1.5, ease: customEase }}
+        className="text-[64px] md:text-[12vw] leading-[0.8] tracking-tight -translate-x-[0.6vw]"
       >
         Ethan Lee
       </motion.div>
@@ -51,7 +51,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: customEase, delay: 1 }}
-        className="flex text-[24px] md:text-[3vw] tracking-tighter font-extralight"
+        className="flex text-[24px] md:text-[3vw] mt-[10px] md:mt-[1vw] tracking-tighter font-extralight"
       >
         <StickyWrapper cursorType={"underline"}>
           <div>
@@ -88,7 +88,7 @@ const LetterSplit = ({ text }) => {
       {text.split("").map((letter, index) => (
         <div
           key={index}
-          style={{ transformPerspective: 500 }}
+          style={{ transformPerspective: 500, transformOrigin: "center top" }}
           className="stagger-letter"
         >
           {letter === " " ? "\u00A0" : letter}

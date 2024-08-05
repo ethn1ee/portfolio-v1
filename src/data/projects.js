@@ -6,7 +6,7 @@ export const projects = [
     year: 2024,
     description:
       "Revamped the shopping experience in a video-based eCommerce service to enhance user experience, focusing on seamless transition from the video player to the purchase process.",
-    tags: ["eCommerce", "Angular", "Figma"],
+    tags: ["Angular", "TypeScript", "Figma"],
     images: [
       {
         orientation: "portrait",
@@ -37,7 +37,7 @@ export const projects = [
     year: 2024,
     description:
       "Developed a website for a student-run ride-sharing platform in Emory University, focusing on user experience and accessibility.",
-    tags: ["Rideshare", "React", "Spring Boot", "MongoDB", "Figma"],
+    tags: ["React", "Java", "Spring Boot", "MongoDB", "Figma"],
     images: [
       {
         orientation: "landscape",
@@ -68,7 +68,7 @@ export const projects = [
     year: 2023,
     description:
       "A social media for photo-journals, allowing users to timelapse their lives and share their stories.",
-    tags: ["Social Media", "Figma"],
+    tags: ["Figma"],
     images: [
       {
         orientation: "portrait",
@@ -99,7 +99,7 @@ export const projects = [
     year: 2023,
     description:
       "An accessible and socially engaging music streaming service, inspired by Spotify and Threads.",
-    tags: ["Social Media", "Figma"],
+    tags: ["Figma"],
     images: [
       {
         orientation: "portrait",
