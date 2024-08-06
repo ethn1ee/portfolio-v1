@@ -52,14 +52,14 @@ const LinkButton = ({ link }) => {
         onMouseLeave={() => setIsHovered(false)}
         ref={navRef}
         whileTap={{ scale: 0.8 }}
-        className="cursor-underline flex flex-col gap-xs md:gap-xxs h-5 md:h-6 overflow-hidden stagger-button"
+        className="cursor-underline flex flex-col gap-xs h-5 md:h-6 overflow-hidden stagger-button"
       >
         <div className="flex">
           {link.title.split("").map((letter, index) => (
             <motion.p
               key={index}
               initial={{ y: 0 }}
-              animate={{ y: isHovered ? -21 : 0 }}
+              animate={{ y: isHovered ? -22 : 0 }}
               transition={{
                 ease: customEase,
                 duration: 0.5,
@@ -76,7 +76,7 @@ const LinkButton = ({ link }) => {
             <motion.p
               key={index}
               initial={{ y: 0 }}
-              animate={{ y: isHovered ? -21 : 0 }}
+              animate={{ y: isHovered ? -22 : 0 }}
               transition={{
                 ease: customEase,
                 duration: 0.5,
@@ -118,7 +118,7 @@ const EmailButton = () => {
       onClick={handleCopy}
       ref={navRef}
       whileTap={{ scale: 0.8 }}
-      className="cursor-underline cursor-pointer flex flex-col w-fit gap-xs md:gap-xxs h-5 md:h-6 overflow-y-clip stagger-button"
+      className="cursor-underline cursor-pointer flex flex-col w-fit gap-xs h-5 md:h-6 overflow-y-clip stagger-button"
     >
       <div className="flex w-fit">
         {"EMAIL".split("").map((letter, index) => (
@@ -126,7 +126,7 @@ const EmailButton = () => {
             key={index}
             initial={{ y: 0 }}
             animate={{
-              y: isCopied ? -40 : isHovered ? -21 : 0,
+              y: isCopied ? -40 : isHovered ? -22 : 0,
             }}
             transition={{
               ease: customEase,
@@ -145,7 +145,7 @@ const EmailButton = () => {
             key={index}
             initial={{ y: 0 }}
             animate={{
-              y: isCopied ? -40 : isHovered ? -21 : 0,
+              y: isCopied ? -40 : isHovered ? -22 : 0,
             }}
             transition={{
               ease: customEase,
@@ -164,7 +164,7 @@ const EmailButton = () => {
             <motion.p
               key={index}
               initial={{ y: 0 }}
-              animate={{ y: isCopied ? -41 : 0 }}
+              animate={{ y: isCopied ? -45 : 0 }}
               exit={{ y: 0 }}
               transition={{
                 ease: customEase,

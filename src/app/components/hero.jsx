@@ -4,10 +4,8 @@ import {
   animate,
   motion,
   stagger,
-  useMotionValue,
   useMotionValueEvent,
   useScroll,
-  useSpring,
 } from "framer-motion";
 import { useEffect, useState } from "react";
 import anim, { customEase } from "@/utils/anim";
@@ -22,13 +20,13 @@ const Hero = () => {
     setHeroOpacity(Math.max(0, 1 - current * 2));
   });
 
-  const staggerText = stagger(0.03, { startDelay: 1 });
+  const staggerText = stagger(0.04, { startDelay: 1, ease: customEase });
 
   useEffect(() => {
     animate(
       ".stagger-letter",
-      { rotateX: [90, 0], opacity: [0, 1], z: [-50, 0], y: [-20, 0] },
-      { delay: staggerText, ease: customEase, duration: 0.5 }
+      { opacity: [0, 1], y: [-30, 0] },
+      { delay: staggerText, duration: 0.3 }
     );
   }, []);
 
@@ -65,32 +63,15 @@ const Hero = () => {
           </div>
         </StickyWrapper>
       </motion.div>
-
-      {/* <StickyWrapper cursorType={"underline"}>
-        <motion.div
-          style={{
-            rotateX: springRotate2,
-            transformOrigin: "top",
-            transformPerspective: 500,
-          }}
-          className="inline"
-        >
-          Portfolio 2024 ed.
-        </motion.div>
-      </StickyWrapper> */}
     </div>
   );
 };
 
 const LetterSplit = ({ text }) => {
   return (
-    <div className="flex w-fit">
+    <div className="flex w-fit overflow-hidden">
       {text.split("").map((letter, index) => (
-        <div
-          key={index}
-          style={{ transformPerspective: 500, transformOrigin: "center top" }}
-          className="stagger-letter"
-        >
+        <div key={index} className="stagger-letter">
           {letter === " " ? "\u00A0" : letter}
         </div>
       ))}
