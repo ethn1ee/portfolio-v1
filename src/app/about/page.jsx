@@ -1,20 +1,13 @@
 "use client";
 
-import Cursor from "@/components/cursor";
 import Experiences from "./components/experiences";
-import HeroText from "./components/heroText";
-import LinkButtons from "./components/linkButtons";
+import Map from "./components/map";
 
 const About = () => {
+
   return (
-    <main>
-      {/* HERO TEXT */}
-      <HeroText />
-
-      {/* LINKS */}
-      <LinkButtons />
-
-      {/* EXPERIENCES */}
+    <main className="flex flex-col gap-ml h-[calc(100vh-80px)]">
+      <Map />
       <Experiences />
     </main>
   );

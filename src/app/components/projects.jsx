@@ -230,13 +230,13 @@ const ProjectCard = ({ project, activeIndex, setActiveIndex, index }) => {
             </div>
 
             {/* DESCRIPTION */}
-            <ProjectContent section="CATEGORY" content={project.category} />
-            <ProjectContent
+            <ProjectRow section="CATEGORY" content={project.category} />
+            <ProjectRow
               section="DESCRIPTION"
               content={project.description}
             />
-            <ProjectContent section="CLIENT" content={project.client} />
-            <ProjectContent section="TECH STACK" content={project.tags} />
+            <ProjectRow section="CLIENT" content={project.client} />
+            <ProjectRow section="TECH STACK" content={project.tags} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -244,7 +244,7 @@ const ProjectCard = ({ project, activeIndex, setActiveIndex, index }) => {
   );
 };
 
-const ProjectContent = ({ section, content }) => {
+const ProjectRow = ({ section, content }) => {
   return (
     <div
       style={{ flex: section === "DESCRIPTION" ? 1 : 0 }}

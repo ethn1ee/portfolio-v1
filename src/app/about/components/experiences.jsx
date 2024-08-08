@@ -1,97 +1,145 @@
 "use client";
 
-import { customEase } from "@/utils/anim";
-import { experiences } from "@/data/experiences";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
 import StickyWrapper from "@/components/stickyWrapper";
+import { experiences } from "@/data/experiences";
+import { customEase } from "@/utils/anim";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const Experiences = () => {
-  const opacityGradient = {
-    WebkitMaskImage:
-      "linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,1) 33%, rgba(0,0,0,1) 67%, rgba(0,0,0,0))",
-    maskImage:
-      "linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,1) 33%, rgba(0,0,0,1) 67%, rgba(0,0,0,0))",
+  const [currentExperience, setCurrentExperience] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const handleScroll = (event) => {
+    if (event.deltaY > 0) {
+      setCurrentExperience((prev) =>
+        Math.min(prev + 1, experiences.length - 1)
+      );
+      setDirection(1);
+    } else {
+      setCurrentExperience((prev) => Math.max(prev - 1, 0));
+      setDirection(-1);
+    }
   };
 
-  return (
-    <div>
-      {/* LINE */}
-      <div
-        style={opacityGradient}
-        className="fixed top-[60px] right-ml w-[1px] h-[calc(100vh-60px)] bg-base-white"
-      />
+  useEffect(() => {
+    window.addEventListener("wheel", handleScroll);
+    return () => window.removeEventListener("wheel", handleScroll);
+  }, []);
 
-      {/* CONTENT */}
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: customEase }}
-          className="ml-auto mr-ml w-[267px] flex flex-col items-end gap-[12vw] py-[45vh]"
-        >
-          {experiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} index={index} />
-          ))}
-        </motion.div>
-      </AnimatePresence>
+  return (
+    <div className="flex-1 flex flex-col gap-ml">
+      {/* HEADER */}
+      <div>
+        <Dates
+          currentExperience={currentExperience}
+          setCurrentExperience={setCurrentExperience}
+        />
+      </div>
+
+      {/* BODY */}
+      <Body currentExperience={currentExperience} direction={direction} />
     </div>
   );
 };
 
-const ExperienceCard = ({ experience, index }) => {
-  const ref = useRef();
-  const [isHovered, setIsHovered] = useState(false);
-  const [intensity, setIntensity] = useState(1);
+const Dates = ({ currentExperience, setCurrentExperience }) => {
+  return (
+    <div className="flex gap-ml items-center w-fit">
+      {experiences.map((experience, index) => (
+        <div key={index} className="flex gap-ml items-center">
+          <StickyWrapper cursorType={"underline"}>
+            <motion.p
+              animate={{
+                color: index === currentExperience ? "#FAFAFA" : "#9F9C9C",
+                fontWeight: index === currentExperience ? 600 : 300,
+              }}
+              onClick={() => setCurrentExperience(index)}
+              className="cursor-pointer"
+            >
+              {experience.start.toUpperCase()} - {experience.end.toUpperCase()}
+            </motion.p>
+          </StickyWrapper>
+          {index < experiences.length - 1 && (
+            <div className="w-1 h-1 rounded-full bg-neutral-900" />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  const NAVBAR_HEIGHT = 60;
+const Body = ({ currentExperience, direction }) => {
+  return (
+    <div className="flex flex-col flex-1">
+      <ExperienceRow
+        section="TITLE"
+        content={experiences[currentExperience].title}
+        currentExperience={currentExperience}
+        direction={direction}
+      />
+      <ExperienceRow
+        section="COMPANY"
+        content={experiences[currentExperience].company}
+        currentExperience={currentExperience}
+        direction={direction}
+      />
+      <ExperienceRow
+        section="LOCATION"
+        content={experiences[currentExperience].location}
+        currentExperience={currentExperience}
+        direction={direction}
+      />
+      <ExperienceRow
+        section="DESCRIPTION"
+        content={experiences[currentExperience].description}
+        currentExperience={currentExperience}
+        direction={direction}
+      />
+    </div>
+  );
+};
 
-  const updateIntensity = () => {
-    const position = ref.current?.getBoundingClientRect().top;
-    const distanceFromCenter = Math.abs(
-      position - (NAVBAR_HEIGHT + window.innerHeight * 0.45)
-    );
-
-    setIntensity(
-      Math.max(0, 1 - distanceFromCenter / (window.innerHeight * 0.5))
-    );
-  };
+const ExperienceRow = ({ section, content, currentExperience, direction }) => {
+  const prevExperienceRef = useRef(currentExperience);
 
   useEffect(() => {
-    if (ref) {
-      updateIntensity();
-      window.addEventListener("scroll", updateIntensity);
-      return () => {
-        window.removeEventListener("scroll", updateIntensity);
-      };
-    }
-  }, [ref]);
+    prevExperienceRef.current = currentExperience;
+  }, [currentExperience]);
 
   return (
-    <StickyWrapper cursorType={"experience-card"}>
-      <div
-        style={{
-          opacity: Math.sqrt(intensity),
-          scale: Math.pow(intensity, 0.2),
-          transformOrigin: "right center",
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className="select-none flex flex-col items-end"
-      >
-        <motion.small
-          ref={ref}
-          animate={{ marginRight: isHovered ? "10px" : "0px" }}
-          className="uppercase font-extrabold text-neutral-400 mb-m"
-        >
-          {experience.start}
-          <span className="text-inherit mx-s">-</span>
-          {experience.end}
-        </motion.small>
-        <div className="text-[24px] text-right mb-s">{experience.title}</div>
-        <p className="text-right">{experience.company}</p>
+    <div
+      style={
+        section === "DESCRIPTION"
+          ? { flex: 1, borderBottomWidth: 1 }
+          : { flex: 0, borderBottomWidth: 0 }
+      }
+      className="w-full flex border-t border-neutral-900 py-m"
+    >
+      <p className="flex-1 text-neutral-400">{section}</p>
+      <div className="flex-1">
+        <AnimatePresence mode="wait">
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: direction > 0 ? 10 : -10,
+            }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{
+              opacity: 0,
+              y: direction > 0 ? -10 : 10,
+            }}
+            transition={{ duration: 0.3, ease: customEase }}
+            key={content + currentExperience}
+            className="text-neutral-400"
+          >
+            <StickyWrapper cursorType={"textpointer"}>
+              <span className="text-inherit">{content}</span>
+            </StickyWrapper>
+          </motion.p>
+        </AnimatePresence>
       </div>
-    </StickyWrapper>
+    </div>
   );
 };
 
