@@ -57,14 +57,14 @@ const NavLink = ({ link }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           whileTap={{ scale: 0.8 }}
-          className="flex flex-col gap-xs md:gap-xxs h-4 md:h-5 overflow-hidden"
+          className="flex flex-col gap-xs h-4 md:h-5 overflow-hidden"
         >
           <div className="flex">
             {link.title.split("").map((letter, index) => (
               <motion.small
                 key={index}
                 initial={{ y: 0 }}
-                animate={{ y: isHovered ? -19 : 0 }}
+                animate={{ y: isHovered ? -21 : 0 }}
                 transition={{
                   ease: customEase,
                   duration: 0.5,
@@ -81,7 +81,7 @@ const NavLink = ({ link }) => {
               <motion.small
                 key={index}
                 initial={{ y: 0 }}
-                animate={{ y: isHovered ? -19 : 0 }}
+                animate={{ y: isHovered ? -21 : 0 }}
                 transition={{
                   ease: customEase,
                   duration: 0.5,
