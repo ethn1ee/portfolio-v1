@@ -69,7 +69,7 @@ const Map = () => {
   };
 
   return (
-    <div className="flex-[2_2_0%] overflow-hidden">
+    <div className="flex-[0_0_60%] overflow-hidden">
       <MapSVG />
       {Object.entries(cards).map(([key, value]) => (
         <CardStack key={key} city={key} items={value} />
@@ -114,7 +114,7 @@ const CardStack = ({ city, items }) => {
         >
           <MapPinIcon className="size-5 fill-neutral-400" />
           <small className="text-neutral-400 font-semibold">
-            {city.toUpperCase()}
+            {city.toUpperCase().replace("-", " ")}
           </small>
         </div>
 
@@ -174,7 +174,7 @@ const LocationCard = ({ title, subtitle, type, id }) => {
           transition={{ duration: 0.3, ease: customEase }}
           className={nohemi.className + " ml-[30px]"}
         >
-          <small className="text-neutral-400 h-fit mt-2 block">
+          <small className="text-neutral-400 h-fit mt-2 block text-nowrap">
             {subtitle}
           </small>
         </motion.div>

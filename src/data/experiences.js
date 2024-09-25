@@ -32,14 +32,14 @@ export const experiences = [
       "Worked with a team of developers to release major updates every week, adapting and contributing to the fast-paced e-commerce startup.",
     ],
   },
-  {
-    start: "Sep 2022",
-    end: "Mar 2023",
-    title: "Research Assistant in Psychology",
-    company: "Music Cognition Lab @ UCSB",
-    location: "Santa Barbara, CA",
-    description: [
-      "Gained proficiency in statistical tools including SPSS Statistics, R, and Gold-MSI for robust data analysis of human listening behavior.",
-    ],
-  },
+  // {
+  //   start: "Sep 2022",
+  //   end: "Mar 2023",
+  //   title: "Research Assistant in Psychology",
+  //   company: "Music Cognition Lab @ UCSB",
+  //   location: "Santa Barbara, CA",
+  //   description: [
+  //     "Gained proficiency in statistical tools including SPSS Statistics, R, and Gold-MSI for robust data analysis of human listening behavior.",
+  //   ],
+  // },
 ];

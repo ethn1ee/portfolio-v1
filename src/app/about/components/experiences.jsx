@@ -31,14 +31,12 @@ const Experiences = () => {
   // }, []);
 
   return (
-    <div className="flex-1 flex flex-col gap-ml">
+    <div className="flex-[0_0_40%] flex flex-col gap-ml">
       {/* HEADER */}
-      <div>
-        <Dates
-          currentExperience={currentExperience}
-          setCurrentExperience={setCurrentExperience}
-        />
-      </div>
+      <Dates
+        currentExperience={currentExperience}
+        setCurrentExperience={setCurrentExperience}
+      />
 
       {/* BODY */}
       <Body currentExperience={currentExperience} />
@@ -123,7 +121,7 @@ const Dates = ({ currentExperience, setCurrentExperience }) => {
 
 const Body = ({ currentExperience }) => {
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 overflow-scroll">
       {currentExperience === -1 ? (
         <>
           <ExperienceRow
