@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { customEase } from "../utils/anim";
 import StickyWrapper from "./stickyWrapper";
+import { nohemi } from "./nohemi";
 
 const links = [
   { url: "/about", title: "ABOUT" },
@@ -19,17 +20,13 @@ const NavBar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: customEase }}
       id="navbar"
-      className="w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"
+      className={nohemi.className + " w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"}
     >
       {/* LOGO */}
-      <StickyWrapper cursorType={"hover"}>
-        <div className="w-8 h-8 relative">
-          <motion.div whileTap={{ scale: 0.8 }} className="w-full h-full">
-            <Link href="/">
-              <Image src="/logo.svg" alt="logo" fill />
-            </Link>
-          </motion.div>
-        </div>
+      <StickyWrapper cursorType={"underline"}>
+        <motion.p whileTap={{ scale: 0.8 }} className="font-medium">
+          <Link href="/">ETHAN LEE</Link>
+        </motion.p>
       </StickyWrapper>
       {/* LINKS */}
       <div className="flex gap-ml items-center h-fit">

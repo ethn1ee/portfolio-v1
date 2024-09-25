@@ -12,14 +12,15 @@ const Cursor = () => {
 
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isDefault, setIsDefault] = useState(true);
   const [elementStyle, setElementStyle] = useState({
     borderRadius: 0,
     backgroundColor: "#FAFAFA",
   });
 
   const mouse = {
-    x: useMotionValue(100),
-    y: useMotionValue(100),
+    x: useMotionValue(-100),
+    y: useMotionValue(-100),
   };
 
   const smoothOptions = { damping: 8, stiffness: 100, mass: 0.1 };
@@ -119,6 +120,7 @@ const Cursor = () => {
     if (hoveredElement?.current) {
       // console.log(hoveredElement.current);
       setElementStyle(window.getComputedStyle(hoveredElement.current));
+      setIsDefault(false);
 
       const className = hoveredElement.current.className;
       const { left, top, width, height } =
@@ -189,15 +191,34 @@ const Cursor = () => {
       setCursorStyle(defaultCursorStyle);
       mouse.x.set(clientX);
       mouse.y.set(clientY);
+      setIsDefault(true);
     }
+  };
+
+  const handleMouseDown = () => {
+    if (!isDefault) return;
+    setCursorStyle((prev) => ({
+      ...prev,
+      width: 40,
+      height: 40,
+    }));
+  };
+
+  const handleMouseUp = () => {
+    if (!isDefault) return;
+    setCursorStyle({ ...defaultCursorStyle });
   };
 
   useEffect(() => {
     window.addEventListener("mousemove", manageMouseMove);
     window.addEventListener("click", manageMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     return () => {
       window.removeEventListener("mousemove", manageMouseMove);
       window.removeEventListener("click", manageMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   });
 
@@ -212,15 +233,12 @@ const Cursor = () => {
   return (
     <>
       {!isTouchDevice && (
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-          <motion.div
-            className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border mix-blend-difference z-10"
-            style={cursorStyle}
-            // initial={cursorStyle}
-            animate={cursorStyle}
-            transition={cursorTransition}
-          ></motion.div>
-        </motion.div>
+        <motion.div
+          className="fixed pointer-events-none -translate-x-1/2 -translate-y-1/2 overflow-hidden box-border mix-blend-difference z-10"
+          style={cursorStyle}
+          animate={cursorStyle}
+          transition={cursorTransition}
+        />
       )}
     </>
   );

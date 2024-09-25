@@ -12,10 +12,9 @@ import anim, { customEase } from "@/utils/anim";
 import Image from "next/image";
 import { projects } from "@/data/projects";
 import StickyWrapper from "@/components/stickyWrapper";
-import Tag from "@/components/tag";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { nohemi } from "@/components/nohemi";
 
-const PROJECT_HEADER_HEIGHT = 40;
+const PROJECT_HEADER_HEIGHT = 50;
 const IMG_ASPECT_RATIO = 16 / 9;
 
 const Projects = () => {
@@ -71,14 +70,14 @@ const Projects = () => {
       {/* LIST HEADER */}
       <div
         style={{ height: PROJECT_HEADER_HEIGHT }}
-        className="w-full flex justify-between items-center pointer-events-none"
+        className={nohemi.className + " font-bold w-full flex justify-between items-center pointer-events-none"}
       >
-        <small className="flex-1 font-bold text-neutral-400">PROJECT</small>
-        <small className="flex-1 font-bold text-neutral-400">CATEGORY</small>
-        <small className="flex-1 font-bold text-right text-neutral-400">
+        <small className="flex-1 text-neutral-400">PROJECT</small>
+        <small className="flex-1 text-neutral-400">CATEGORY</small>
+        <small className="flex-1 text-right text-neutral-400">
           CLIENT
         </small>
-        <small className="flex-1 font-bold text-right text-neutral-400">
+        <small className="flex-1 text-right text-neutral-400">
           YEAR
         </small>
       </div>
@@ -180,7 +179,7 @@ const ProjectCard = ({ project, activeIndex, setActiveIndex, index }) => {
               {project.name}
             </motion.p>
 
-            <p className="flex-1 font-light">
+            <p className="flex-1">
               {project.category.map((category, index) => (
                 <span className="text-inherit" key={index}>
                   {category}
@@ -189,7 +188,7 @@ const ProjectCard = ({ project, activeIndex, setActiveIndex, index }) => {
               ))}
             </p>
 
-            <p className="flex-1 text-right font-light">{project.client}</p>
+            <p className="flex-1 text-right">{project.client}</p>
 
             <motion.p
               animate={{
@@ -250,8 +249,8 @@ const ProjectRow = ({ section, content }) => {
       style={{ flex: section === "DESCRIPTION" ? 1 : 0 }}
       className="flex border-t border-neutral-900 py-m"
     >
-      <p className="flex-1 text-neutral-400">{section}</p>
-      <p className="flex-1 text-neutral-400">
+      <p className={nohemi.className + " flex-1 text-neutral-400 font-medium"}>{section}</p>
+      <p className="flex-1 text-neutral-400 font-medium">
         {typeof content === "string" ? (
           <StickyWrapper cursorType={"textpointer"}>
             <span className="text-inherit">{content}</span>
