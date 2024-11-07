@@ -23,7 +23,7 @@ const RightSidebar = () => {
     } else {
       setCurrentPost(null);
     }
-  }, []);
+  }, [pathname, isPost, postData]);
 
   const slideInVariant = {
     initial: { x: 50, opacity: 0 },
@@ -34,7 +34,7 @@ const RightSidebar = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {isPost && (
+      {isPost && currentPost && (
         <motion.aside
           {...anim(slideInVariant)}
           key={pathname}
@@ -44,7 +44,7 @@ const RightSidebar = () => {
           <div>
             <small className="font-bold">TAGS</small>
             <div className="mt-sm flex flex-wrap gap-sm">
-              {currentPost?.metadata.tags.map((tag) => (
+              {currentPost.metadata.tags.map((tag) => (
                 <Tag key={tag} item={tag} />
               ))}
             </div>
