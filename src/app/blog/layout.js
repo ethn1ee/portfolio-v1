@@ -10,7 +10,7 @@ export default function Layout({ children }) {
     <>
       <PostDataProvider value={postData}>
         <LeftSidebar />
-        <div className="relative left-[25vw] pt-ml">{children}</div>
+        <div className="relative left-[20vw] pt-ml">{children}</div>
         <RightSidebar />
       </PostDataProvider>
     </>

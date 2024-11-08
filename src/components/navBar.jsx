@@ -20,14 +20,20 @@ const NavBar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: customEase }}
       id="navbar"
-      className={nohemi.className + " w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"}
+      className={
+        nohemi.className +
+        " w-screen px-ml fixed top-0 left-0 flex items-center justify-between h-[60px] bg-base-black z-10"
+      }
     >
       {/* LOGO */}
       <StickyWrapper cursorType={"underline"}>
-        <motion.p whileTap={{ scale: 0.8 }} className="font-medium">
-          <Link href="/">ETHAN LEE</Link>
-        </motion.p>
+        <Link href="/" className="font-medium">
+          {"ETHANLEE".split("").map((letter, index) => (
+            <motion.span key={index} whileHover={{ fontWeight: 800 }}>{letter}</motion.span>
+          ))}
+        </Link>
       </StickyWrapper>
+
       {/* LINKS */}
       <div className="flex gap-ml items-center h-fit">
         {links.map((link, index) => (
